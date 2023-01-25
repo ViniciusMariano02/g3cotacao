@@ -1,0 +1,7 @@
+.app-header {
+  display: flex;
+  justify-content: center;
+  font-size: calc(20px + 3vmin);
+  color: white;
+  margin-top: 25px;
+}
