@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import "./ProductsTable.css";
 import logo2 from "../assets/logo2.png"
 import { Link } from 'react-router-dom';
 
 export const Products = () => {
     const [products, setProducts] = useState([]);
-    const [filterParam, setFilterParam] = useState([]);
-    const [q, setQ] = useState("");
-    const [searchParam] = useState(["descricao", "id"]);
+    const [selectedQuotation, setSelectedQuotation] = useEffect();
 
     useEffect(() => {
         async function fetchData (){
@@ -18,30 +16,17 @@ export const Products = () => {
         fetchData();
     }, []);
 
-    const data = Object.values(products);
+    function getFilteredList(){
+        if (!selectedQuotation) {
+            return products;
+        }
+        return products.filter((product) => product.descricao === selectedQuotation)
+    }
 
-    function search(products) {
-        return products.filter((product) => {
-            if (product.descricao == filterParam) {
-                return searchParam.some((newProduct) => {
-                    return(
-                        product[newProduct]
-                                .toString()
-                                .toLowerCase()
-                                .indexOf(q.toLowerCase()) > 0
-                    );
-                });
-            } else if (filterParam == "All"){
-                return searchParam.some((newProduct) =>{
-                    return (
-                        product[newProduct]
-                                .toString()
-                                .toLowerCase()
-                                .indexOf(q.toLowerCase()) > 0
-                    );
-                });
-            }
-        });
+    var filteredList = useMemo(getFilteredList, [selectedQuotation, products]);
+
+    function handleQuotationChange(event){
+        setSelectedQuotation(event.target.valeu);
     }
 
     const [isEdit, setEdit] = useState(false);
@@ -99,16 +84,16 @@ export const Products = () => {
                     </div>
                     <div className="card-body p-0">
                     <div className="select" >
-                                    <select onChange={(e) => {
-                                        setFilterParam(e.target.valeu);
-                                        }}
-                                        className = "custom-select"
-                                        aria-label = "Filtro por cotação"
-                    >
-                                    <option value={products.descricao}>Cotação 1</option>
-                                    <option value={products.descricao}>Cotação 2</option>
-                                    <option value={products.detalhe}>Cotação 3</option>
-                                    <option value={products.detalhe}>Cotação 4</option>
+                                    <select 
+                                        name="quotation-list"
+                                        id="quotation-list"
+                                        onChange={handleQuotationChange}
+                                    >
+                                    <option value="">Selecione a cotação</option>
+                                    <option value="TESTE COTACAO 1">Cotação 1</option>
+                                    <option value="TESTE COTAÇÃO 6">Cotação 2</option>
+                                    <option value="TESTE COTAÇÃO 9">Cotação 3</option>
+                                    <option value="TESTE COTAÇÃO 12">Cotação 4</option>
                                     </select>
                                 </div>
                         <form onSubmit={handleSave} className="table-responsive"> {}
