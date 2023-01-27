@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 export const Products = () => {
     const [products, setProducts] = useState([]);
-    const [selectedQuotation, setSelectedQuotation] = useEffect();
+    const [selectedQuotation, setSelectedQuotation] = useState();
 
     useEffect(() => {
         async function fetchData (){
