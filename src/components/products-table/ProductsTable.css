@@ -11,7 +11,7 @@ body {
 }
 
 .border-top-01{
-  width: 500px;
+  width: 30%;
   margin: 10px;
   font-size: 15px;
   color: black;
@@ -20,7 +20,7 @@ body {
 }
 
 .border-top-02{
-  width: 80px;
+  width: 5%;
   margin: 10px;
   font-size: 15px;
   color: black;
@@ -29,7 +29,7 @@ body {
 }
 
 .border-top-03{
-  width: 90px;
+  width: 8%;
   margin: 10px;
   font-size: 15px;
   color: black;
@@ -38,7 +38,7 @@ body {
 }
 
 .border-top-04{
-  width: 250px;
+  width: 16%;
   margin: 10px;
   font-size: 15px;
   color: black;
@@ -47,7 +47,7 @@ body {
 }
 
 .border-top-05{
-  width: 60px;
+  width: 5.5%;
   margin: 10px;
   font-size: 15px;
   color: black;
@@ -56,7 +56,7 @@ body {
 }
 
 .border-top-06{
-  width: 420px;
+  width: 29%;
   margin: 10px;
   font-size: 15px;
   color: black;
@@ -65,7 +65,7 @@ body {
 }
 
 .border-top-07{
-  width: 100px;
+  width: 5%;
   margin: 10px;
   font-size: 15px;
   color: black;
@@ -75,12 +75,11 @@ body {
 
 .card-header{
   height: 80px;
-  width: 1560px;
+  width: 100%;
   font-size: 50px;
   text-align: center;
   background-color: #8DD2F5;
   font-style: italic;
-  margin-left: 5px;
   color: white;
   border-style: groove;
 }
@@ -141,6 +140,7 @@ body {
 }
 
 .home-image{
+  position: absolute;
   width: 150px;
   padding-right: 30px;
   padding-left: 15px;
@@ -150,43 +150,35 @@ body {
   display: grid;
   align-items: center;
   background-color: white;
-  width: 1600px;
+  width: 100vw;
   height: 100px;
   color: #87CEFA;
 }
 
-.title-geral{
-  position: absolute;
-  font-size: 1.0em;
-  padding-right: 400px;
-  font-style: italic;
-}
 
 .marca{
   position: absolute;
   color: #000;
-  padding-left: 1380px;
-  padding-bottom: 50px;
-  font-size: 17px;
+  margin-left: 1380px;
+  font-size: 15px;
   font-style: bold;
 }
 
 .exit{
-  padding-left: 12px;
+  margin-left: 12px;
   color: #FF3630;
   font-size: 16px;
 }
 
 select{
   background-color: #ebf7f8;
-  position: relative;
   border-color: #9cc4e4;
   border-top-width: 5px;
-  color: #1D3FD1;
+  color: #333333;
   font-family: Yu Gothic;
   font-size: 25px;
   height: 20px;
-  width: 1570px;
+  width: 100vw;
   border-radius: 10px;
   height: auto;
   border-width: auto;
@@ -194,6 +186,9 @@ select{
   border-width: 2.5px;
 }
 
-
+select:hover{
+  color: #005bc5;
+  background-color: #eee8e8;
+} 
 
 
