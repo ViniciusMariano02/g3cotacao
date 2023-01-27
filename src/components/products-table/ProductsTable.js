@@ -26,7 +26,7 @@ export const Products = () => {
     var filteredList = useMemo(getFilteredList, [selectedQuotation, products]);
 
     function handleQuotationChange(event){
-        setSelectedQuotation(event.target.valeu);
+        setSelectedQuotation(event.target.value);
     }
 
     const [isEdit, setEdit] = useState(false);
@@ -82,18 +82,20 @@ export const Products = () => {
                     <div className="card-header">
                          Cotações disponiveis  
                     </div>
-                    <div className="card-body p-0">
-                    <div className="select" >
+                    <div className="card-body p-0">                     
+                                <div className="select" >
                                     <select 
                                         name="quotation-list"
                                         id="quotation-list"
                                         onChange={handleQuotationChange}
-                                    >
+                                    >  
                                     <option value="">Selecione a cotação</option>
-                                    <option value="TESTE COTACAO 1">Cotação 1</option>
-                                    <option value="TESTE COTAÇÃO 6">Cotação 2</option>
-                                    <option value="TESTE COTAÇÃO 9">Cotação 3</option>
-                                    <option value="TESTE COTAÇÃO 12">Cotação 4</option>
+                                    {products.map((item) => {
+                                        return (
+                                            <option key={item.id} value={item.descricao}>{item.id}-{item.descricao}</option>
+                                        )
+                                    })}
+
                                     </select>
                                 </div>
                         <form onSubmit={handleSave} className="table-responsive"> {}
@@ -127,7 +129,7 @@ export const Products = () => {
                                     
                                     {products.length ? (
 
-                                        products.map((products)  => (
+                                        filteredList.map((products)  => (
                                             products.detalhe.map((detalhes, i) => {
                                                 return (
                                                         <tr key={detalhes.id}>
@@ -139,7 +141,7 @@ export const Products = () => {
                                                             (
                                                             <input 
                                                                 className= "edit-input"
-                                                                value={detalhes.valor_custo_fornecedor || ''}  
+                                                                value={detalhes.valor_custo_fornecedor }  
                                                                 name="valor_custo_fornecedor"
                                                                 onChange={(e) => handleInputChange(e, i)} 
                                                             />
