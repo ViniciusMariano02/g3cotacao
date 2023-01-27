@@ -73,7 +73,7 @@ export const Products = () => {
         <div>
             <div>
                 <header className="geral-header">
-                    <h2 className="title-geral"><span><img className="home-image" src={logo2} alt='G3'/>Cotações</span><p className="marca">MASTERBOI LTDA<Link className="exit" to='/'>Sair</Link></p></h2>
+                    <img className="home-image" src={logo2} alt='G3'/><p className="marca">MASTERBOI LTDA<Link className="exit" to='/'>Sair</Link></p>
                 </header>
             </div>
             <div className="product-list">
