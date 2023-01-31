@@ -1,0 +1,211 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: white;
+}
+
+.border-top-01{
+  width: 30%;
+  margin: 10px;
+  font-size: 15px;
+  color: black;
+  background-color: lightslategrey;
+  border-style: groove;
+}
+
+.border-top-02{
+  width: 5%;
+  margin: 10px;
+  font-size: 15px;
+  color: black;
+  background-color: lightslategrey;
+  border-style: groove;
+}
+
+.border-top-03{
+  width: 8%;
+  margin: 10px;
+  font-size: 15px;
+  color: black;
+  background-color: lightslategrey;
+  border-style: groove;
+}
+
+.border-top-04{
+  width: 16%;
+  margin: 10px;
+  font-size: 15px;
+  color: black;
+  background-color: lightslategrey;
+  border-style: groove;
+}
+
+.border-top-05{
+  width: 5.5%;
+  margin: 10px;
+  font-size: 15px;
+  color: black;
+  background-color: lightslategrey;
+  border-style: groove;
+}
+
+.border-top-06{
+  width: 29%;
+  margin: 10px;
+  font-size: 15px;
+  color: black;
+  background-color: lightslategrey;
+  border-style: groove;
+}
+
+.border-top-07{
+  width: 5%;
+  margin: 10px;
+  font-size: 15px;
+  color: black;
+  background-color: lightslategrey;
+  border-style: groove;
+}
+
+.card-header{
+  height: 80px;
+  width: 100%;
+  font-size: 50px;
+  background-color: #8DD2F5;
+  font-style: italic;
+  color: white;
+  border-style: groove;
+}
+
+.placeholder{
+  border-style: solid;
+  border-width: 1px;
+  font-size: 15px;
+  color: black;
+}
+
+.edit-input{
+  border-style: solid;
+  border-width: 1px;
+  font-size: 17px;
+  color: black;
+}
+
+.placeholder02{
+  border-style: solid;
+  border-width: 1px;
+  font-size: 17px;
+  color: black;
+}
+
+.placeholder03{
+  border-style: solid;
+  border-width: 1px;
+  font-size: 17px;
+  color: black;
+}
+
+.placeholder04{
+  border-style: solid;
+  border-width: 1px;
+  font-size: 17px;
+  color: black;
+}
+
+.placeholder05{
+  border-style: solid;
+  border-width: 1px;
+  font-size: 17px;
+  color: black;
+}
+
+.placeholder06{
+  border-style: solid;
+  border-width: 1px;
+  font-size: 17px;
+  color: black;
+}
+
+.text-danger{
+  font-size: 20px;
+  text-align: center;
+  color: red;  
+}
+
+.home-image{
+  position: absolute;
+  width: 150px;
+  padding-right: 30px;
+  padding-left: 15px;
+}
+
+.geral-header{
+  display: grid;
+  align-items: center;
+  background-color: white;
+  width: 100vw;
+  height: 100px;
+  color: #87CEFA;
+}
+
+
+.marca{
+  position: absolute;
+  color: #000;
+  margin-left: 1380px;
+  font-size: 15px;
+  font-style: bold;
+}
+
+.exit{
+  margin-left: 12px;
+  color: #FF3630;
+  font-size: 16px;
+}
+
+select{
+  background-color: #ebf7f8;
+  border-color: #9cc4e4;
+  border-top-width: 5px;
+  color: #333333;
+  font-family: Yu Gothic;
+  font-size: 25px;
+  height: 20px;
+  width: 100vw;
+  border-radius: 10px;
+  height: auto;
+  border-width: auto;
+  align-items: center;
+  border-width: 2.5px;
+}
+
+select:hover{
+  color: #005bc5;
+  background-color: #eee8e8;
+} 
+
+.save{
+  background: #0066A2;
+	color: white;
+	border-style: outset;
+	border-color: #0066A2;
+	height: 50px;
+	width: 75px;
+  font-size: 17px;
+	font: bold15px arial,sans-serif;
+	text-shadow: none;
+  border-radius: 10px;
+}
+
+
+.edit{
+  position: relative;
+  border-color: #0066A2;
+  border-radius: 10px;
+  border-style: outset;
+  background-color: #0066A2;
+  color: #f7f7f7;
+  width: 45px;
+  height: 40px;
+  margin-left: 1440px;
+}
