@@ -49,14 +49,6 @@ export const Products = () => {
         setEdit(!isEdit);
     }
 
-    const detalheList = [];
-
-    products.map(object => object.values).forEach((detalhar) => {
-        detalheList.push(products[1])
-    });
-
-    console.log(detalheList)
-
     const handleInputChange01 = (e, index) =>{
         const {name, value} = e.target;
         const list = [...products];
@@ -70,13 +62,14 @@ export const Products = () => {
             list[index][name] = value; 
             setProducts(list); 
     }
-
+    
     const handleSave = async(e) => {
             e.preventDefault();
             fetch("http://8b38091fc43d.sn.mynetname.net:2000/cotacaoDetalhe/save",{ 
                 method:"POST", 
                 headers:{"content-type":"application/json"}, 
-                body:JSON.stringify(detalheList) 
+                body:JSON.stringify(products)
+
             }).then((res)=>{
                 if(res.status === 200 || res.status === 201){ 
                     setEdit(!isEdit); 
@@ -97,11 +90,14 @@ export const Products = () => {
             <div className="product-list">
             <div className="product">
                 <div className="card mt-5 mb-5">
+
                     <div className="card-header">
                         <Link to ="/home" className="op1">Principal</Link>
                         <Link to ="/table" className="op2">Cotação</Link> 
                     </div>
-                    <div className="card-body p-0">                     
+            
+                    <div className="card-body p-0">    
+
                                 <div className="select" >
                                     <select 
                                         name="quotation-list"
@@ -111,49 +107,62 @@ export const Products = () => {
                                     <option value="None">Selecione a cotação</option>
                                     {products.map((item) => {
                                         return (
-                                            <option key={item.id} value={item.descricao}>{item.id}-{item.descricao}</option>
+                                            <option key={item.id} value={item.descricao}>Cotação: ({item.id}-{item.descricao}) <p className="DHI">Data/Hora Inicio: {item.data_hora_emissao}</p> <p className="DHT">Data/Hora Termino: {item.data_hora_fim_cotacao}</p> </option> 
                                         )
                                     })}
-
                                     </select>
                                 </div>
+
                         <form onSubmit={handleSave} className="table-responsive"> {}
                             <table className="table mb-0">
                                 <thead>
                                     <tr>
-                                        <th className="border-top-01" scope="col">
-                                            Descrição
-                                        </th>
-                                        <th className="border-top-02">
-                                            Valor
-                                        </th>
-                                        <th className="border-top-03">
-                                            Embalagem
-                                        </th>
-                                        <th className="border-top-04">
-                                            Código de Barra
-                                        </th>
                                         <th className="border-top-05">
                                             Código
                                         </th>
-                                        <th className="border-top-06">
-                                            Observação
+                                        <th className="border-top-01" scope="col">
+                                            Descrição
+                                        </th>                                        
+                                        <th className="border-top-04">
+                                            Código de Barra
+                                        </th>                                        
+                                        <th className="border-top-03">
+                                            Embalagem
                                         </th>
                                         <th className="border-top-07">
                                             Quantidade
                                         </th>
+                                        <th className="border-top-02">
+                                            Valor
+                                        </th>
+                                        <th className="border-top-06">
+                                            Observação
+                                        </th>
+
                                     </tr>
                                 </thead>
+
                                 <tbody>
-                                    
                                     {products.length ? (
 
                                         filteredList.map((products)  => (
                                             products.detalhe.map((detalhes, i) => {
                                                 return (
                                                         <tr key={detalhes.id}>
+                                                        <td className= "placeholder04">
+                                                            {detalhes.id_produto}
+                                                        </td>
                                                         <td className="placeholder">
                                                             {detalhes.descricao}
+                                                        </td>
+                                                        <td className= "placeholder03">
+                                                            {detalhes.gtin}
+                                                        </td>
+                                                        <td id='category' className= "placeholder02" >
+                                                            {detalhes.unidade}
+                                                        </td>
+                                                        <td className= "placeholder06">
+                                                            {detalhes.quantidade}
                                                         </td>
                                                         <td className= "edit-input" onDoubleClick={handleEdit}>{}
                                                             {isEdit ? 
@@ -166,15 +175,7 @@ export const Products = () => {
                                                             />
                                                             ) : (detalhes.valor_custo_fornecedor )} {}
                                                         </td>
-                                                        <td id='category' className= "placeholder02" >
-                                                            {detalhes.unidade}
-                                                        </td>
-                                                        <td className= "placeholder03">
-                                                            {detalhes.gtin}
-                                                        </td>
-                                                        <td className= "placeholder04">
-                                                            {detalhes.id_produto}
-                                                        </td>
+
                                                         <td className= "placeholder05" onDoubleClick={handleEdit}>{isEdit ? (
                                                             <input className= "placeholder05" value={detalhes.observacao}
                                                             name="observacao"
@@ -182,10 +183,6 @@ export const Products = () => {
                                                             />
                                                                 
                                                         ) : (detalhes.observacao)}
-                                                        </td>
-
-                                                        <td className= "placeholder06">
-                                                            {detalhes.quantidade}
                                                         </td>
                                                     </tr>
                                                     
@@ -207,6 +204,7 @@ export const Products = () => {
                                 </tbody>
                             </table>
                             <div>
+
                             <button className="edit" onClick={handleEdit}>
                                 <i> 
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -214,7 +212,9 @@ export const Products = () => {
                                     </svg>
                                 </i>
                             </button>
+
                             <button className="save" onSubmit={handleSave}> Salvar </button> {}
+
                             </div>
 
                         </form>
