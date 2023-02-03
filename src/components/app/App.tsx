@@ -7,7 +7,6 @@ import { ProtectedRoute } from '../protected-route/ProtectedRoute';
 import { Provider } from 'react-redux';
 import { store } from '../../redux/store';
 import Home from '../home/Home';
-import Quotations from '../quotations/Quotations';
 
 
 const App = () => {
@@ -17,9 +16,8 @@ const App = () => {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Login/>} />
-                <Route path="/home" element={Home}/>
-                <Route path="/quotations" element={Quotations}/>
-                <Route path="/table" element={<Products/>} />
+                <Route path="/home" element={<ProtectedRoute><Home/></ProtectedRoute>}/>
+                <Route path="/table" element={<ProtectedRoute><Products/></ProtectedRoute>} />
             </Routes>
           </BrowserRouter>
         </header>

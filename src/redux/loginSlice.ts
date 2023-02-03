@@ -22,9 +22,13 @@ const loginSlice = createSlice({
         localStorage.setItem('token', token);
         
         return {... state, user:"Admin", password:"", isLogged:true, errorMessage:""}
+      },
+      loginExit(state){
+        localStorage.removeItem('token')
+        return {...state, user:"", password:"", isLogged:false, errorMessage:""}
       }
     },
 })
 
-export const { loginError, loginLogout, loginEnter } = loginSlice.actions
+export const { loginError, loginLogout, loginEnter, loginExit } = loginSlice.actions
 export default loginSlice.reducer
