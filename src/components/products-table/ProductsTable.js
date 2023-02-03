@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 export const Products = () => {
     const [products, setProducts] = useState([]);
     const [selectedQuotation, setSelectedQuotation] = useState();
+    const [detalhe, setDetalhe] = useState();
 
     useEffect(() => {
         async function fetchData (){
@@ -42,42 +43,48 @@ export const Products = () => {
 
     const [isEdit, setEdit] = useState(false);
       
-      console.log(products);
+      //console.log(products);
     
-
     const handleEdit = () =>{
         setEdit(!isEdit);
     }
 
-    const handleInputChange01 = (e, index) =>{
-        const {name, value} = e.target;
-        const list = [...products];
-        list[index][name] = value
-        setProducts(list);
+    const handleInputChange01 = (e, index, id) =>{
+        const {target} = e;
+        setProducts(
+            (prevList) => {
+                const newList = [...prevList];
+                newList[index].detalhe.find(el => el.id === id).observacao = target.value;
+                return newList;
+            }
+        )
     }
 
-    const handleInputChange = (e, index) =>{
-            const {name, value} = e.target; 
-            const list = [...products]; 
-            list[index][name] = value; 
-            setProducts(list); 
+    const handleInputChange = (e, index, id) =>{
+        const {target} = e;
+        setProducts(
+            (prevList) => {
+                const newList = [...prevList];
+                newList[index].detalhe.find(el => el.id === id).valor_custo_fornecedor = Number(target.value);
+                return newList;
+            }
+        )
     }
     
     const handleSave = async(e) => {
-            e.preventDefault();
-            fetch("http://8b38091fc43d.sn.mynetname.net:2000/cotacaoDetalhe/save",{ 
-                method:"POST", 
-                headers:{"content-type":"application/json"}, 
-                body:JSON.stringify(products)
-
-            }).then((res)=>{
-                if(res.status === 200 || res.status === 201){ 
-                    setEdit(!isEdit); 
-                    alert('Salvo com sucesso.'); 
-                }
-            }).catch((err)=>{
-                console.log(err.message)  
-            })
+        e.preventDefault();
+        fetch("http://10.0.1.94:8088/cotacao/save",{ 
+            method:"POST", 
+            headers:{"content-type":"application/json"},
+            body:JSON.stringify(products)
+        }).then((res)=>{
+            if( res.status === 201){ 
+                setEdit(!isEdit); 
+                alert('Salvo com sucesso.'); 
+            }
+        }).catch((err)=>{
+            console.log(err.message)  
+        })
     }
 
     return(
@@ -145,7 +152,7 @@ export const Products = () => {
                                 <tbody>
                                     {products.length ? (
 
-                                        filteredList.map((products)  => (
+                                        filteredList.map((products, indexProduto)  => (
                                             products.detalhe.map((detalhes, i) => {
                                                 return (
                                                         <tr key={detalhes.id}>
@@ -164,26 +171,29 @@ export const Products = () => {
                                                         <td className= "placeholder06">
                                                             {detalhes.quantidade}
                                                         </td>
-                                                        <td className= "edit-input" onDoubleClick={handleEdit}>{}
-                                                            {isEdit ? 
-                                                            (
-                                                            <input 
-                                                                className= "edit-input"
-                                                                value={detalhes.valor_custo_fornecedor }  
-                                                                name="valor_custo_fornecedor"
-                                                                onChange={(e) => handleInputChange(e, i)} 
-                                                            />
-                                                            ) : (detalhes.valor_custo_fornecedor )} {}
+
+                                                        <td className= "edit-input" onDoubleClick={handleEdit}>{} R$  
+                                                                {isEdit ? 
+                                                                (
+                                                                <input 
+                                                                    className= "edit-input"
+                                                                    value={detalhes.valor_custo_fornecedor}  
+                                                                    name="valor_custo_fornecedor"
+                                                                    onChange={e => handleInputChange(e, indexProduto, detalhes.id)} 
+                                                                /> 
+                                                                ) :  (detalhes.valor_custo_fornecedor )} {}
+                                                                
                                                         </td>
 
                                                         <td className= "placeholder05" onDoubleClick={handleEdit}>{isEdit ? (
                                                             <input className= "placeholder05" value={detalhes.observacao}
                                                             name="observacao"
-                                                            onChange={(e) => handleInputChange01(e, i)}
+                                                            onChange={(e) => handleInputChange01(e, indexProduto, detalhes.id)}
                                                             />
-                                                                
+                                                                    
                                                         ) : (detalhes.observacao)}
                                                         </td>
+
                                                     </tr>
                                                     
                                                 )
@@ -200,7 +210,6 @@ export const Products = () => {
                                         )
                                     }
                                     
-
                                 </tbody>
                             </table>
                             <div>
