@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 export const Products = () => {
     const [products, setProducts] = useState([]);
     const [selectedQuotation, setSelectedQuotation] = useState();
+    const [valorCusto, setValorCusto] = useState();
 
     useEffect(() => {
         async function fetchData (){
@@ -20,47 +21,56 @@ export const Products = () => {
         if (!selectedQuotation) {
             return products;
         }
-        return products.filter((product) => product.descricao === selectedQuotation)
+        return products.filter((product) => product.descricao === selectedQuotation);
+
     }
 
     var filteredList = useMemo(getFilteredList, [selectedQuotation, products]);
 
-    function handleQuotationChange(event){
-        setSelectedQuotation(event.target.valeu);
+    function handleQuotationChange(e){
+        setSelectedQuotation(e.target.value);
     }
 
     const [isEdit, setEdit] = useState(false);
       
-      console.log(products);
+    console.log(products);
+    //console.log(detalhes);
     
 
     const handleEdit = () =>{
         setEdit(!isEdit);
     }
 
-    const handleInputChange01 = (e, index) =>{
-        const {name, value} = e.target;
-        const list = [...products];
-        list[index][name] = value
-        setProducts(list);
+    const handleInputChange01 = (e, index, id) =>{
+        const {target} = e;
+        setProducts(
+            (prevList) => {
+                const newList = [...prevList];
+                newList[index].detalhe.find(el => el.id === id).observacao = target.value;
+                return newList;
+            }
+        )
     }
 
-
-    const handleInputChange = (e, index) =>{
-            const {name, value} = e.target; 
-            const list = [...products]; 
-            list[index][name] = value; 
-            setProducts(list); 
+    const handleInputChange = (e, index, id) =>{
+        const {target} = e;
+        setProducts(
+            (prevList) => {
+                const newList = [...prevList];
+                newList[index].detalhe.find(el => el.id === id).valor_custo_fornecedor = Number(target.value);
+                return newList;
+            }
+        )
     }
-
+//http://8b38091fc43d.sn.mynetname.net:2000/cotacaoDetalhe/save
     const handleSave = async(e) => {
             e.preventDefault();
-            fetch("http://8b38091fc43d.sn.mynetname.net:2000/cotacaoDetalhe/save",{ 
+            fetch("http://10.0.1.94:8088/cotacao/save",{ 
                 method:"POST", 
-                headers:{"content-type":"application/json"}, 
-                body:JSON.stringify(products) 
+                headers:{"content-type":"application/json"},
+                body:JSON.stringify(products)
             }).then((res)=>{
-                if(res.status === 200 || res.status === 201){ 
+                if( res.status === 201){ 
                     setEdit(!isEdit); 
                     alert('Salvo com sucesso.'); 
                 }
@@ -90,13 +100,16 @@ export const Products = () => {
                                         onChange={handleQuotationChange}
                                     >
                                     <option value="">Selecione a cotação</option>
-                                    <option value="TESTE COTACAO 1">Cotação 1</option>
-                                    <option value="TESTE COTAÇÃO 6">Cotação 2</option>
-                                    <option value="TESTE COTAÇÃO 9">Cotação 3</option>
-                                    <option value="TESTE COTAÇÃO 12">Cotação 4</option>
+                                    {products.map((item) => {
+                                        return (
+                                            <option key={item.id} value={item.descricao}>{item.id}-{item.descricao}</option>
+                                        )
+                                    })}
+                                    
+
                                     </select>
                                 </div>
-                        <form onSubmit={handleSave} className="table-responsive"> {}
+                        <form onSubmit={handleSave} className="table-responsive">
                             <table className="table mb-0">
                                 <thead>
                                     <tr>
@@ -124,63 +137,63 @@ export const Products = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
-                                    {products.length ? (
+                                        {products.length ? (
 
-                                        products.map((products)  => (
-                                            products.detalhe.map((detalhes, i) => {
-                                                return (
+                                            filteredList.map((products, indexProduto)  => (
+                                                products.detalhe.map((detalhes) => {
+                                                    return (
                                                         <tr key={detalhes.id}>
-                                                        <td className="placeholder">
-                                                            {detalhes.descricao}
-                                                        </td>
-                                                        <td className= "edit-input" onDoubleClick={handleEdit}>{}
-                                                            {isEdit ? 
-                                                            (
-                                                            <input 
-                                                                className= "edit-input"
-                                                                value={detalhes.valor_custo_fornecedor || ''}  
-                                                                name="valor_custo_fornecedor"
-                                                                onChange={(e) => handleInputChange(e, i)} 
-                                                            />
-                                                            ) : (detalhes.valor_custo_fornecedor )} {}
-                                                        </td>
-                                                        <td id='category' className= "placeholder02" >
-                                                            {detalhes.unidade}
-                                                        </td>
-                                                        <td className= "placeholder03">
-                                                            {detalhes.gtin}
-                                                        </td>
-                                                        <td className= "placeholder04">
-                                                            {detalhes.id_produto}
-                                                        </td>
-                                                        <td className= "placeholder05" onDoubleClick={handleEdit}>{isEdit ? (
-                                                            <input className= "placeholder05" value={detalhes.observacao}
-                                                            name="observacao"
-                                                            onChange={(e) => handleInputChange01(e, i)}
-                                                            />
-                                                                
-                                                        ) : (detalhes.observacao)}
-                                                        </td>
-
-                                                        <td className= "placeholder06">
-                                                            {detalhes.quantidade}
-                                                        </td>
-                                                    </tr>
+                                                            <td className="placeholder">
+                                                                {detalhes.descricao}
+                                                            </td>
+                                                            <td className= "edit-input" onDoubleClick={handleEdit}>{}
+                                                                {isEdit ? 
+                                                                (
+                                                                <input 
+                                                                    className= "edit-input"
+                                                                    value={detalhes.valor_custo_fornecedor}  
+                                                                    name="valor_custo_fornecedor"
+                                                                    onChange={e => handleInputChange(e, indexProduto, detalhes.id)} 
+                                                                />
+                                                                ) : (detalhes.valor_custo_fornecedor )} {}
+                                                            </td>
+                                                            <td id='category' className= "placeholder02" >
+                                                                {detalhes.unidade}
+                                                            </td>
+                                                            <td className= "placeholder03">
+                                                                {detalhes.gtin}
+                                                            </td>
+                                                            <td className= "placeholder04">
+                                                                {detalhes.id_produto}
+                                                            </td>
+                                                            <td className= "placeholder05" onDoubleClick={handleEdit}>{isEdit ? (
+                                                                <input className= "placeholder05" value={detalhes.observacao}
+                                                                name="observacao"
+                                                                onChange={(e) => handleInputChange01(e, indexProduto, detalhes.id)}
+                                                                />
+                                                                    
+                                                            ) : (detalhes.observacao)}
+                                                            </td>
+    
+                                                            <td className= "placeholder06">
+                                                                {detalhes.quantidade}
+                                                            </td>
+                                                        </tr>
+                                                        
+                                                    )
+    
+    
+                                                })                                
                                                     
-                                                )
-
-
-                                            })                                
+                                            ))
                                                 
-                                        ))
-                                            
-                                        ) : (
-                                            <tr>
-                                                <td colspan="4" className="text-danger"> A lista está vazia! </td>
-                                            </tr>
-                                        )
-                                    }
+                                            ) : (
+                                                <tr>
+                                                    <td colspan="4" className="text-danger"> A lista está vazia! </td>
+                                                </tr>
+                                            )
+                                        }
+                                    
                                     
 
                                 </tbody>
