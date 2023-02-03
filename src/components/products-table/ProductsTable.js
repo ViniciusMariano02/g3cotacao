@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 export const Products = () => {
     const [products, setProducts] = useState([]);
     const [selectedQuotation, setSelectedQuotation] = useState();
-    const [detalhe, setDetalhe] = useState();
+    const [detalhe, setDetalhe] = useState([]);
 
     useEffect(() => {
         async function fetchData (){
@@ -30,9 +30,9 @@ export const Products = () => {
 
     function getFilteredList(){
         if (!selectedQuotation) {
-            return products.filter((product) => product.descricao === selectedQuotation)
+            setDetalhe(products.filter((product) => product.descricao === selectedQuotation))
         }
-        return products.filter((product) => product.descricao === selectedQuotation)
+        setDetalhe( products.filter((product) => product.descricao === selectedQuotation))
     }
 
     var filteredList = useMemo(getFilteredList, [selectedQuotation, products]);
@@ -42,8 +42,6 @@ export const Products = () => {
     }
 
     const [isEdit, setEdit] = useState(false);
-      
-      //console.log(products);
     
     const handleEdit = () =>{
         setEdit(!isEdit);
@@ -51,7 +49,7 @@ export const Products = () => {
 
     const handleInputChange01 = (e, index, id) =>{
         const {target} = e;
-        setProducts(
+        setDetalhe(
             (prevList) => {
                 const newList = [...prevList];
                 newList[index].detalhe.find(el => el.id === id).observacao = target.value;
@@ -62,7 +60,7 @@ export const Products = () => {
 
     const handleInputChange = (e, index, id) =>{
         const {target} = e;
-        setProducts(
+        setDetalhe (
             (prevList) => {
                 const newList = [...prevList];
                 newList[index].detalhe.find(el => el.id === id).valor_custo_fornecedor = target.value;
@@ -152,7 +150,7 @@ export const Products = () => {
                                 <tbody>
                                     {products.length ? (
 
-                                        filteredList.map((products, indexProduto)  => (
+                                        detalhe.map((products, indexProduto)  => (
                                             products.detalhe.map((detalhes, i) => {
                                                 return (
                                                         <tr key={detalhes.id}>
@@ -185,7 +183,7 @@ export const Products = () => {
                                                                 ) :  (detalhes.valor_custo_fornecedor )} {}
                                                                 
                                                         </td>
-
+                                                        
                                                         <td className= "placeholder05" onDoubleClick={handleEdit}>{isEdit ? (
                                                             <input className= "placeholder05" value={detalhes.observacao}
                                                             name="observacao"
@@ -194,7 +192,6 @@ export const Products = () => {
                                                                     
                                                         ) : (detalhes.observacao)}
                                                         </td>
-
                                                     </tr>
                                                     
                                                 )
