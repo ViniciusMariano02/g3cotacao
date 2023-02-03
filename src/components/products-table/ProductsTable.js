@@ -30,7 +30,7 @@ export const Products = () => {
 
     function getFilteredList(){
         if (!selectedQuotation) {
-            return products;
+            return products.filter((product) => product.descricao === selectedQuotation)
         }
         return products.filter((product) => product.descricao === selectedQuotation)
     }
@@ -65,7 +65,7 @@ export const Products = () => {
         setProducts(
             (prevList) => {
                 const newList = [...prevList];
-                newList[index].detalhe.find(el => el.id === id).valor_custo_fornecedor = Number(target.value);
+                newList[index].detalhe.find(el => el.id === id).valor_custo_fornecedor = target.value;
                 return newList;
             }
         )
@@ -179,6 +179,7 @@ export const Products = () => {
                                                                     className= "edit-input"
                                                                     value={detalhes.valor_custo_fornecedor}  
                                                                     name="valor_custo_fornecedor"
+                                                                    type="Number"
                                                                     onChange={e => handleInputChange(e, indexProduto, detalhes.id)} 
                                                                 /> 
                                                                 ) :  (detalhes.valor_custo_fornecedor )} {}
