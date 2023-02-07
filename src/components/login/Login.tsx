@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import './Login.css';
 import TextField from '@mui/material/TextField';
 import {Button} from '@mui/material';
@@ -11,34 +11,51 @@ import logo2 from './logo2.png';
 
 function Login() {
 
-  const [userName, setUserName] = useState("");
+  const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
+  async function login() 
+    {
+      const result = await fetch (`http://8b38091fc43d.sn.mynetname.net:2000/user/${userId}/${password} `, {
+      }).then((res) => {
+        if( res.status === 200){
+          dispatch(loginEnter());
+        }
+        else{
+          dispatch(loginError());
+        }
+      }).catch((err)=>{
+        console.log(err.message)  
+    })
+    
+    }
+
+
   store.subscribe(() => {
     setErrorMessage(store.getState().login.errorMessage);
-    if(store.getState().login.isLogged == true)
-      navigate('/home');
-  })
+      if(store.getState().login.isLogged === true)
+        navigate('/home');
+        })
 
   const dispatch = useDispatch()
 
   function onChangeUserName(e:ChangeEvent<HTMLInputElement>){
-    setUserName(e.currentTarget.value)
+    setUserId(e.currentTarget.value)
   }
   
   function onChangePassword(e:ChangeEvent<HTMLInputElement>){
     setPassword(e.currentTarget.value)
   }
   
-  function onClickEnter(){
-    if( verifyCredentials(userName, password) )
-      dispatch(loginEnter());
-    else
-      dispatch(loginError());
-  }
+  //function onClickEnter(){
+    //if( verifyCredentials(userId, password) )
+      //dispatch(loginEnter());
+    //else
+      //dispatch(loginError());
+  //}
 
   return (
       <header className="login-header">
@@ -51,7 +68,7 @@ function Login() {
               className='wrap-input'
               required
               id="user-name"
-              label="Usuário"
+              label="Código"
               defaultValue=""
               onChange={onChangeUserName}
             />
@@ -70,12 +87,13 @@ function Login() {
             {errorMessage}
           </div>
 
-            <Button className='btn' variant="contained" onClick={onClickEnter}>Login</Button>
+            <Button className='btn' variant="contained" onClick={login} >Login</Button>
         </div>
         
       </header>
-
   );
 }
 
-export default Login; 
+export default Login;
+
+
