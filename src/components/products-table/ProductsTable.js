@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 export const Products = () => {
     const [products, setProducts] = useState([]);
     const [selectedQuotation, setSelectedQuotation] = useState();
-    const [detalhe, setDetalhe] = useState();
+    const [detalhe, setDetalhe] = useState([]);
 
     useEffect(() => {
         async function fetchData (){
@@ -30,9 +30,9 @@ export const Products = () => {
 
     function getFilteredList(){
         if (!selectedQuotation) {
-            return products;
+            setDetalhe(products.filter((product) => product.descricao === selectedQuotation))
         }
-        return products.filter((product) => product.descricao === selectedQuotation)
+        setDetalhe( products.filter((product) => product.descricao === selectedQuotation))
     }
 
     var filteredList = useMemo(getFilteredList, [selectedQuotation, products]);
@@ -42,8 +42,6 @@ export const Products = () => {
     }
 
     const [isEdit, setEdit] = useState(false);
-      
-      //console.log(products);
     
     const handleEdit = () =>{
         setEdit(!isEdit);
@@ -51,7 +49,7 @@ export const Products = () => {
 
     const handleInputChange01 = (e, index, id) =>{
         const {target} = e;
-        setProducts(
+        setDetalhe(
             (prevList) => {
                 const newList = [...prevList];
                 newList[index].detalhe.find(el => el.id === id).observacao = target.value;
@@ -60,21 +58,32 @@ export const Products = () => {
         )
     }
 
+    useEffect(() => {
+        document.addEventListener("keydown", function (event) {
+          if (event.keyCode === 13 && event.target.nodeName === "INPUT") {
+            var form = event.target.form;
+            var index = Array.prototype.indexOf.call(form, event.target);
+            form.elements[index + 2].focus();
+            event.preventDefault();
+          }
+        });
+      }, []);
+
     const handleInputChange = (e, index, id) =>{
         const {target} = e;
-        setProducts(
+        setDetalhe (
             (prevList) => {
                 const newList = [...prevList];
-                newList[index].detalhe.find(el => el.id === id).valor_custo_fornecedor = Number(target.value);
+                newList[index].detalhe.find(el => el.id === id).valor_custo_fornecedor = target.value;
                 return newList;
             }
         )
     }
-    
+
     const handleSave = async(e) => {
         e.preventDefault();
         fetch("http://10.0.1.94:8088/cotacao/save",{ 
-            method:"POST", 
+            method:"PUT", 
             headers:{"content-type":"application/json"},
             body:JSON.stringify(products)
         }).then((res)=>{
@@ -152,8 +161,25 @@ export const Products = () => {
                                 <tbody>
                                     {products.length ? (
 
-                                        filteredList.map((products, indexProduto)  => (
+                                        detalhe.map((products, indexProduto)  => (
                                             products.detalhe.map((detalhes, i) => {
+
+                                                function getBackgroundColor () {
+                                                    let color;
+                                                    if (detalhes.valor_custo_fornecedor === 0) {
+                                                        color = "red";
+                                                    } else if (detalhes.valor_custo_fornecedor > detalhes.preco_max) {
+                                                        color = 'purple';
+                                                    } else if (detalhes.valor_custo_fornecedor < detalhes.preco_min ) {
+                                                        color = 'orange';
+                                                    }else if (detalhes.valor_custo_fornecedor === null ) {
+                                                        color = 'gray';
+                                                    }else {
+                                                        color = 'green'
+                                                    }
+                                                    return color;
+                                                };
+
                                                 return (
                                                         <tr key={detalhes.id}>
                                                         <td className= "placeholder04">
@@ -172,28 +198,30 @@ export const Products = () => {
                                                             {detalhes.quantidade}
                                                         </td>
 
-                                                        <td className= "edit-input" onDoubleClick={handleEdit}>{} R$  
+                                                        <td className= "edit-input" onDoubleClick={handleEdit}   > R$  
                                                                 {isEdit ? 
                                                                 (
                                                                 <input 
                                                                     className= "edit-input"
                                                                     value={detalhes.valor_custo_fornecedor}  
                                                                     name="valor_custo_fornecedor"
+                                                                    type="Number"
+                                                                    min="0.01" 
+                                                                    step="0.01"
                                                                     onChange={e => handleInputChange(e, indexProduto, detalhes.id)} 
                                                                 /> 
                                                                 ) :  (detalhes.valor_custo_fornecedor )} {}
                                                                 
                                                         </td>
-
+                                                        
                                                         <td className= "placeholder05" onDoubleClick={handleEdit}>{isEdit ? (
                                                             <input className= "placeholder05" value={detalhes.observacao}
-                                                            name="observacao"
+                                                            name="observacao" 
                                                             onChange={(e) => handleInputChange01(e, indexProduto, detalhes.id)}
                                                             />
                                                                     
                                                         ) : (detalhes.observacao)}
                                                         </td>
-
                                                     </tr>
                                                     
                                                 )
@@ -235,7 +263,5 @@ export const Products = () => {
         
     );
 }
-
-
 
 export default Products
