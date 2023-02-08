@@ -58,6 +58,17 @@ export const Products = () => {
         )
     }
 
+    useEffect(() => {
+        document.addEventListener("keydown", function (event) {
+          if (event.keyCode === 13 && event.target.nodeName === "INPUT") {
+            var form = event.target.form;
+            var index = Array.prototype.indexOf.call(form, event.target);
+            form.elements[index + 2].focus();
+            event.preventDefault();
+          }
+        });
+      }, []);
+
     const handleInputChange = (e, index, id) =>{
         const {target} = e;
         setDetalhe (
@@ -66,12 +77,12 @@ export const Products = () => {
                 newList[index].detalhe.find(el => el.id === id).valor_custo_fornecedor = target.value;
                 return newList;
             }
-        )
+        );
     }
-    
+
     const handleSave = async(e) => {
         e.preventDefault();
-        fetch("http://10.0.1.94:8088/cotacao/save",{ 
+        fetch("http://8b38091fc43d.sn.mynetname.net:2000/cotacao/save",{ 
             method:"PUT", 
             headers:{"content-type":"application/json"},
             body:JSON.stringify(products)
@@ -83,6 +94,18 @@ export const Products = () => {
         }).catch((err)=>{
             console.log(err.message)  
         })
+    }
+
+    //mudar cor input
+
+    const getCelColor = (detalhes) => {
+        if (detalhes.valor_custo_fornecedor < detalhes.preco_min){
+            return 'red';
+        }else if (detalhes.valor_custo_fornecedor > detalhes.preco_max){
+            return 'orange';
+        }else{
+            return 'green';
+        }
     }
 
     return(
@@ -152,6 +175,7 @@ export const Products = () => {
 
                                         detalhe.map((products, indexProduto)  => (
                                             products.detalhe.map((detalhes, i) => {
+
                                                 return (
                                                         <tr key={detalhes.id}>
                                                         <td className= "placeholder04">
@@ -170,7 +194,7 @@ export const Products = () => {
                                                             {detalhes.quantidade}
                                                         </td>
 
-                                                        <td className= "edit-input" onDoubleClick={handleEdit}>{} R$  
+                                                        <td className= "edit-input" onDoubleClick={handleEdit} style={{color: getCelColor(detalhes)}} > R$  
                                                                 {isEdit ? 
                                                                 (
                                                                 <input 
@@ -178,7 +202,10 @@ export const Products = () => {
                                                                     value={detalhes.valor_custo_fornecedor}  
                                                                     name="valor_custo_fornecedor"
                                                                     type="Number"
-                                                                    onChange={e => handleInputChange(e, indexProduto, detalhes.id)} 
+                                                                    min="0.01" 
+                                                                    step="0.01"
+                                                                    style={{color: getCelColor(detalhes)}}
+                                                                    onChange={e => handleInputChange( e, indexProduto, detalhes.id)} 
                                                                 /> 
                                                                 ) :  (detalhes.valor_custo_fornecedor )} {}
                                                                 
@@ -186,7 +213,7 @@ export const Products = () => {
                                                         
                                                         <td className= "placeholder05" onDoubleClick={handleEdit}>{isEdit ? (
                                                             <input className= "placeholder05" value={detalhes.observacao}
-                                                            name="observacao"
+                                                            name="observacao" 
                                                             onChange={(e) => handleInputChange01(e, indexProduto, detalhes.id)}
                                                             />
                                                                     
@@ -233,7 +260,5 @@ export const Products = () => {
         
     );
 }
-
-
 
 export default Products
