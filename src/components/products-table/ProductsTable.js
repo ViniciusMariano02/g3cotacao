@@ -118,7 +118,7 @@ export const Products = () => {
         <div className='geral'>
             <div className='container'>
                 <header className="geral-header">
-                    <img className="home-image" src={logo2} alt='G3'/>
+                    <img className="home-image" src={logo2} alt='G3 Soluções'/>
                 </header>
                 <p className="marca">MASTERBOI LTDA <button className="exit" onClick={onChangeLogin}>Sair</button> </p>
             </div>
