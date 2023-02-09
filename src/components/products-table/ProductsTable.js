@@ -135,6 +135,7 @@ export const Products = () => {
 
                                 <div className="select" >
                                     <select 
+                                        disabled={isEdit} 
                                         name="quotation-list"
                                         id="quotation-list"
                                         onChange={handleQuotationChange}
