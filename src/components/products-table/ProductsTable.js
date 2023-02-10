@@ -114,16 +114,22 @@ export const Products = () => {
         }
     }
 
+
     return(
+
         <div className='geral'>
+
             <div className='container'>
                 <header className="geral-header">
-                    <img className="home-image" src={logo2} alt='G3 Soluções'/>
+                    <img className="home-image" src={logo2} alt='G3'/>
                 </header>
                 <p className="marca">MASTERBOI LTDA <button className="exit" onClick={onChangeLogin}>Sair</button> </p>
             </div>
+
             <div className="product-list">
+
             <div className="product">
+
                 <div className="card mt-5 mb-5">
 
                     <div className="card-header">
@@ -134,6 +140,7 @@ export const Products = () => {
                     <div className="card-body p-0">    
 
                                 <div className="select" >
+
                                     <select 
                                         disabled={isEdit} 
                                         name="quotation-list"
@@ -147,56 +154,70 @@ export const Products = () => {
                                         )
                                     })}
                                     </select>
+                                    
                                 </div>
 
                         <form onSubmit={handleSave} className="table-responsive"> {}
+
                             <table className="table mb-0">
+
                                 <thead>
                                     <tr>
                                         <th className="border-top-05">
                                             Código
                                         </th>
+
                                         <th className="border-top-01" scope="col">
                                             Descrição
-                                        </th>                                        
+                                        </th> 
+
                                         <th className="border-top-04">
                                             Código de Barra
-                                        </th>                                        
+                                        </th>    
+
                                         <th className="border-top-03">
                                             Embalagem
                                         </th>
+
                                         <th className="border-top-07">
                                             Quantidade
                                         </th>
+
                                         <th className="border-top-02">
                                             Valor
                                         </th>
+
                                         <th className="border-top-06">
                                             Observação
                                         </th>
-
                                     </tr>
                                 </thead>
 
                                 <tbody>
+
                                     {products.length ? (
 
                                         detalhe.map((products, indexProduto)  => (
                                             products.detalhe.map((detalhes, i) => {
                                                 return (
                                                         <tr key={detalhes.id}>
+
                                                         <td className= "placeholder04">
                                                             {detalhes.id_produto}
                                                         </td>
+
                                                         <td className="placeholder">
                                                             {detalhes.descricao}
                                                         </td>
+
                                                         <td className= "placeholder03">
                                                             {detalhes.gtin}
                                                         </td>
+
                                                         <td id='category' className= "placeholder02" >
                                                             {detalhes.unidade}
                                                         </td>
+
                                                         <td className= "placeholder06">
                                                             {detalhes.quantidade}
                                                         </td>
@@ -227,6 +248,7 @@ export const Products = () => {
                                                                     
                                                         ) : (detalhes.observacao)}
                                                         </td>
+                                                        
                                                     </tr>
                                                     
                                                 )
@@ -237,6 +259,7 @@ export const Products = () => {
                                         ))
                                             
                                         ) : (
+
                                             <tr>
                                                 <td colspan="4" className="text-danger"> A lista está vazia! </td>
                                             </tr>
@@ -244,7 +267,9 @@ export const Products = () => {
                                     }
                                     
                                 </tbody>
+
                             </table>
+
                             <div className='botao'>
 
                             <button className="edit" onClick={handleEdit}>
@@ -260,10 +285,19 @@ export const Products = () => {
                             </div>
 
                         </form>
+
+                        <h3 className='legenda'>
+                            <p className='up'> - Acima do valor : LARANJA </p>  <p className='down'> - Abaixo do valor : VERMELHO </p> 
+                        </h3>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
         </div>
         
     );
