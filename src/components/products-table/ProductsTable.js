@@ -287,7 +287,7 @@ export const Products = () => {
                         </form>
 
                         <h3 className='legenda'>
-                            <p className='up'> - Acima do valor : LARANJA </p>  <p className='down'> - Abaixo do valor : VERMELHO </p> 
+                            <p className='up'> - ACIMA </p>  <p className='down'> - ABAIXO </p> 
                         </h3>
 
                     </div>
