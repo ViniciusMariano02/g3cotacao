@@ -251,7 +251,7 @@ select:hover{
   border-style: double;
   color: orange;
   font-size: 13px;
-  width: 10vw;
+  width: 50px;
 }
 
 .down{
@@ -259,7 +259,7 @@ select:hover{
   border-style: double;
   color: red;
   font-size: 13px;
-  width: 10vw;
+  width: 50px;
 }
 
 
