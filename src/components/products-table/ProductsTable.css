@@ -251,15 +251,16 @@ select:hover{
   border-style: double;
   color: orange;
   font-size: 13px;
-  width: 35vw;
+  width: 10vw;
 }
 
 .down{
-  margin-top: 5px;
+  margin-top: 10px;
   border-style: double;
   color: red;
   font-size: 13px;
-  width: 35vw;
+  width: 10vw;
 }
+
 
 
