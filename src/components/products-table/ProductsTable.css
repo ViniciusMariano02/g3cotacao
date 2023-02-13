@@ -1,0 +1,269 @@
+* {
+  margin: 0;
+  padding: 0;
+  
+}
+.geral{
+  width: 100%;
+}
+.over{
+  
+  overflow-x: scroll;
+ 
+}
+table{
+  width: 100%;
+}
+
+.border-top-01{
+  width: 30%;
+  margin: 10px;
+  font-size: 15px;
+  color: black;
+  background-color: lightslategrey;
+  border-style: groove;
+}
+
+.border-top-02{
+  width: 5%;
+  margin: 10px;
+  font-size: 15px;
+  color: black;
+  background-color: lightslategrey;
+  border-style: groove;
+}
+
+.border-top-03{
+  width: 8%;
+  margin: 10px;
+  font-size: 15px;
+  color: black;
+  background-color: lightslategrey;
+  border-style: groove;
+}
+
+.border-top-04{
+  width: 16%;
+  margin: 10px;
+  font-size: 15px;
+  color: black;
+  background-color: lightslategrey;
+  border-style: groove;
+}
+
+.border-top-05{
+  width: 5.5%;
+  margin: 10px;
+  font-size: 15px;
+  color: black;
+  background-color: lightslategrey;
+  border-style: groove;
+}
+
+.border-top-06{
+  width: 29%;
+  margin: 10px;
+  font-size: 15px;
+  color: black;
+  background-color: lightslategrey;
+  border-style: groove;
+}
+
+.border-top-07{
+  width: 8%;
+  margin: 10px;
+  font-size: 15px;
+  color: black;
+  background-color: lightslategrey;
+  border-style: groove;
+}
+div>.op3{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #0000FF;
+    
+    text-decoration: none;
+    font-size: 18px;
+    padding-left: 20px;
+    padding-right: 20px;
+    
+}
+div>.op4{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #0000FF;
+    text-decoration: none;
+    font-size: 18px;
+  
+}
+.card-header{
+  font-size: 18px;
+  background-color: rgba(80, 188, 221, 0.979);
+ height: 30px;
+ padding-left: 20px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.placeholder{
+  border-style: solid;
+  border-width: 1px;
+  font-size: 15px;
+  color: black;
+}
+
+.edit-input{
+  width: 70px;
+  border-style: solid;
+  border-width: 1px;
+  font-size: 17px;
+  color: black;
+}
+
+.placeholder02{
+  border-style: solid;
+  border-width: 1px;
+  font-size: 17px;
+  color: black;
+}
+
+.placeholder03{
+  border-style: solid;
+  border-width: 1px;
+  font-size: 17px;
+  color: black;
+}
+
+.placeholder04{
+  border-style: solid;
+  border-width: 1px;
+  font-size: 17px;
+  color: black;
+}
+
+.placeholder05{
+  width: 425px;
+  border-style: solid;
+  border-width: 1px;
+  font-size: 17px;
+  color: black;
+}
+
+.placeholder06{
+  border-style: solid;
+  border-width: 1px;
+  font-size: 17px;
+  color: black;
+}
+
+.text-danger{
+  font-size: 20px;
+  text-align: center;
+  color: red;  
+}
+
+.home-image{
+  width: 150px;
+  padding-right: 30px;
+}
+
+.geral-header{  
+  background-color: white;
+  width: 100%;
+  height: 80px;
+  color: #87CEFA;
+}
+
+.container{
+  display: flex;
+}
+
+.marca{
+  display: flex;
+  color: #000;
+  font-size: 15px;
+  font-style: italic;
+}
+
+.exit{
+  background-color: red;
+  margin-right: 10px;
+  border: none;
+  color: white;
+  height: 20px;
+  padding: 3px 4px;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+select{
+  background-color: #ebf7f8;
+  border-color: #9cc4e4;
+  border-top-width: 5px;
+  color: #333333;
+  font-family: Yu Gothic;
+  font-size: 17px;
+  height: 20px;
+  width:100%;
+  border-radius: 10px;
+  height: auto;
+  align-items: center;
+  border-width: 2.5px;
+}
+
+select:hover{
+  color: #005bc5;
+  background-color: #eee8e8;
+} 
+
+select:disabled{
+  color:darkgray;
+  background-color: #333333;
+}
+
+.botao{
+  display: flex;
+   justify-content: right;
+  padding-right: 3vw;
+}
+.save{  
+  background: #0066A2;
+	color: white;
+	border-style: outset;
+	border-color: #0066A2;
+	height: 50px;
+	width: 75px;
+  font-size: 17px;
+	font: bold 15px arial,sans-serif;
+	text-shadow: none;
+  border-radius: 10px;
+}
+
+
+.edit{
+  border-color: #0066A2;
+  border-radius: 10px;
+  border-style: outset;
+  background-color: #0066A2;
+  color: #f7f7f7;
+  width: 50px;
+  height: 50px;  
+}
+
+.leganda{
+  display: flexbox;
+}
+
+.up{
+  margin-top: 20vw;
+  border-style: double;
+  color: orange;
+  font-size: 13px;
+  width: 50px;
+}
+
+.down{
+  margin-top: 10px;
+  border-style: double;
+  color: red;
+  font-size: 13px;
+  width: 50px;
+}
+
