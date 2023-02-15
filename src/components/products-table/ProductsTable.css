@@ -1,7 +1,18 @@
-body {
+* {
   margin: 0;
   padding: 0;
-  background-color: white;
+  
+}
+.geral{
+  width: 100%;
+}
+.over{
+  
+  overflow-x: scroll;
+ 
+}
+table{
+  width: 100%;
 }
 
 .border-top-01{
@@ -59,22 +70,41 @@ body {
 }
 
 .border-top-07{
-  width: 5%;
+  width: 8%;
   margin: 10px;
   font-size: 15px;
   color: black;
   background-color: lightslategrey;
   border-style: groove;
 }
+div>.op3{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #0e5392;
+    
+    text-decoration: none;
+    font-size: 18px;
+    padding-left: 20px;
+    padding-right: 20px;
+    
+}
+div>.op4{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #0e5392;
+    text-decoration: none;
+    font-size: 18px;
+  
+}
+
+div>.op4:hover{
+  color: white;
+}
 
 .card-header{
-  height: 80px;
-  width: 100%;
-  font-size: 50px;
-  background-color: #8DD2F5;
-  font-style: italic;
-  color: white;
-  border-style: groove;
+  font-size: 18px;
+  background-color: #0aa0d4;
+ height: 30px;
+ padding-left: 20px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 .placeholder{
@@ -85,6 +115,8 @@ body {
 }
 
 .edit-input{
+  cursor: pointer;
+  width: 70px;
   border-style: solid;
   border-width: 1px;
   font-size: 17px;
@@ -113,6 +145,8 @@ body {
 }
 
 .placeholder05{
+  cursor: pointer;
+  width: 425px;
   border-style: solid;
   border-width: 1px;
   font-size: 17px;
@@ -127,54 +161,66 @@ body {
 }
 
 .text-danger{
+  margin-left: 45vw;
+  display: grid;
+  flex-direction: row;
+  justify-content: center;
   font-size: 20px;
   text-align: center;
   color: red;  
 }
 
-.home-image{
-  position: absolute;
-  width: 150px;
-  padding-right: 30px;
-  padding-left: 15px;
+i{
+  height: 6vw;
 }
 
-.geral-header{
-  display: grid;
-  align-items: center;
+.home-image{
+  margin-left: 5px;
+  width: 150px;
+  padding-right: 30px;
+}
+
+.geral-header{  
   background-color: white;
-  width: 100vw;
-  height: 100px;
+  width: 100%;
+  height: 80px;
   color: #87CEFA;
 }
 
+.container{
+  display: flex;
+}
 
 .marca{
-  position: absolute;
+  display: flex;
   color: #000;
-  margin-left: 1380px;
   font-size: 15px;
-  font-style: bold;
+  font-style: italic;
 }
 
 .exit{
-  margin-left: 12px;
-  color: #FF3630;
+  cursor: pointer;
+  background-color: red;
+  margin-right: 10px;
+  border: none;
+  color: white;
+  height: 20px;
+  padding: 3px 4px;
+  text-decoration: none;
   font-size: 16px;
 }
 
 select{
-  background-color: #ebf7f8;
+  cursor: pointer;
   border-color: #9cc4e4;
   border-top-width: 5px;
   color: #333333;
   font-family: Yu Gothic;
   font-size: 17px;
   height: 20px;
-  width: 100vw;
+  width:100%;
   border-radius: 10px;
   height: auto;
-  border-width: auto;
   align-items: center;
   border-width: 2.5px;
 }
@@ -184,28 +230,93 @@ select:hover{
   background-color: #eee8e8;
 } 
 
-.save{
-  background: #0066A2;
+select:disabled{
+  color:darkgray;
+  background-color: #333333;
+}
+
+.botao{
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  padding-right: 5px;
+  margin-bottom: 2vw;
+}
+
+.save{ 
+  cursor: pointer;
+  background: #1e345a;
 	color: white;
 	border-style: outset;
-	border-color: #0066A2;
+	border-color: #1e345a;
 	height: 50px;
 	width: 75px;
   font-size: 17px;
-	font: bold15px arial,sans-serif;
+	font: bold 15px arial,sans-serif;
 	text-shadow: none;
   border-radius: 10px;
 }
 
 
 .edit{
-  position: relative;
-  border-color: #0066A2;
+  margin-top: 15px;
+  cursor: pointer;
+  border-color: #074076;
   border-radius: 10px;
   border-style: outset;
-  background-color: #0066A2;
+  background-color: #074076;
   color: #f7f7f7;
-  width: 45px;
-  height: 40px;
-  margin-left: 1440px;
+  width: 50px;
+  height: 50px;  
+}
+
+.leganda{
+  justify-content: left;
+  display: flexbox;
+}
+
+.up{
+  margin-top: 15px;
+  height: 15px;
+  border-style: double;
+  background-color: #fafafa;
+  color: orange;
+  font-size: 13px;
+  width: 50px;
+}
+
+.down{
+  margin-right: 1vw;
+  height: 15px;
+  margin-top: 3px;
+  background-color: #fafafa;
+  border-style: double;
+  color: red;
+  font-size: 13px;
+  width: 50px;
+}
+
+@media(max-width:700px){
+  .over{
+    overflow-y: scroll;
+    overflow-x: scroll;
+  }
+  .table-resposive{
+    width: 95%;
+  }
+  .edit{
+    margin-top: 1px;
+  }
+  .up{
+    margin-top: 1px;
+  }
+}
+
+@media(max-height:500px){
+  .edit{
+    margin-top: 2px;
+  }
+  .up{
+    margin-top: 2px;
+  }
 }

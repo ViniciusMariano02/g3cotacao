@@ -63,7 +63,7 @@ export const Products = () => {
           if (event.keyCode === 13 && event.target.nodeName === "INPUT") {
             var form = event.target.form;
             var index = Array.prototype.indexOf.call(form, event.target);
-            form.elements[index + 2].focus();
+            form.elements[index + 1].focus();
             event.preventDefault();
           }
         });
@@ -77,7 +77,7 @@ export const Products = () => {
                 newList[index].detalhe.find(el => el.id === id).valor_custo_fornecedor = target.value;
                 return newList;
             }
-        );
+        )
     }
 
     const handleSave = async(e) => {
@@ -96,8 +96,6 @@ export const Products = () => {
         })
     }
 
-    //mudar cor input
-
     const getCelColor = (detalhes) => {
         if (detalhes.valor_custo_fornecedor < detalhes.preco_min){
             return 'red';
@@ -108,15 +106,42 @@ export const Products = () => {
         }
     }
 
+    window.onbeforeunload = confirmExit;
+    function confirmExit(e)
+  { e.preventDefault()
+    return "Seus dados não salvos serão perdidos. Deseja Realmente sair?";
+  }
+
+    const valoresp = (detalhes) =>{
+        if(detalhes.preco_max === null && detalhes.preco_min === null){    
+            detalhes.preco_max = 9999;
+            detalhes.preco_min = 0
+        }else if (detalhes.preco_max === 0 && detalhes.preco_min === 0){
+            detalhes.preco_max = 9999;
+            detalhes.preco_min = 0
+        }else if (detalhes.preco_max > 0 && detalhes.valor_custo_fornecedor > detalhes.preco_max){
+            detalhes.valor_custo_fornecedor = null
+        }else if (detalhes.preco_min > 0 && detalhes.valor_custo_fornecedor < detalhes.preco_min){
+            detalhes.valor_custo_fornecedor = null
+
+        }
+    }
+
     return(
-        <div>
-            <div>
+
+        <div className='geral'>
+
+            <div className='container'>
                 <header className="geral-header">
-                    <img className="home-image" src={logo2} alt='G3'/><p className="marca">MASTERBOI LTDA <button className="exit" onClick={onChangeLogin}>Sair</button> </p>
+                    <img className="home-image" src={logo2} alt='G3'/>
                 </header>
+                <p className="marca">MASTERBOI LTDA <button className="exit" onClick={onChangeLogin}>Sair</button> </p>
             </div>
+
             <div className="product-list">
+
             <div className="product">
+
                 <div className="card mt-5 mb-5">
 
                     <div className="card-header">
@@ -127,7 +152,9 @@ export const Products = () => {
                     <div className="card-body p-0">    
 
                                 <div className="select" >
+
                                     <select 
+                                        disabled={isEdit} 
                                         name="quotation-list"
                                         id="quotation-list"
                                         onChange={handleQuotationChange}
@@ -139,86 +166,106 @@ export const Products = () => {
                                         )
                                     })}
                                     </select>
+                                    
                                 </div>
 
                         <form onSubmit={handleSave} className="table-responsive"> {}
+
+                        <div className='over'>         
                             <table className="table mb-0">
+
                                 <thead>
                                     <tr>
                                         <th className="border-top-05">
                                             Código
                                         </th>
+
                                         <th className="border-top-01" scope="col">
                                             Descrição
-                                        </th>                                        
+                                        </th> 
+
                                         <th className="border-top-04">
                                             Código de Barra
-                                        </th>                                        
+                                        </th>    
+
                                         <th className="border-top-03">
                                             Embalagem
                                         </th>
+
                                         <th className="border-top-07">
                                             Quantidade
                                         </th>
+
                                         <th className="border-top-02">
                                             Valor
                                         </th>
+
                                         <th className="border-top-06">
                                             Observação
                                         </th>
-
                                     </tr>
                                 </thead>
 
                                 <tbody>
+
                                     {products.length ? (
 
                                         detalhe.map((products, indexProduto)  => (
                                             products.detalhe.map((detalhes, i) => {
-
                                                 return (
                                                         <tr key={detalhes.id}>
+
                                                         <td className= "placeholder04">
                                                             {detalhes.id_produto}
                                                         </td>
+
                                                         <td className="placeholder">
                                                             {detalhes.descricao}
                                                         </td>
+
                                                         <td className= "placeholder03">
                                                             {detalhes.gtin}
                                                         </td>
+
                                                         <td id='category' className= "placeholder02" >
                                                             {detalhes.unidade}
                                                         </td>
+
                                                         <td className= "placeholder06">
-                                                            {detalhes.quantidade}
+                                                            {detalhes.quantidade.toFixed(3).replace(".", ",")}
                                                         </td>
 
-                                                        <td className= "edit-input" onDoubleClick={handleEdit} style={{color: getCelColor(detalhes)}} > R$  
+                                                        <td className= "edit-input" onDoubleClick={handleEdit}> R$  
                                                                 {isEdit ? 
                                                                 (
                                                                 <input 
                                                                     className= "edit-input"
-                                                                    value={detalhes.valor_custo_fornecedor}  
-                                                                    name="valor_custo_fornecedor"
-                                                                    type="Number"
-                                                                    min="0.01" 
-                                                                    step="0.01"
                                                                     style={{color: getCelColor(detalhes)}}
-                                                                    onChange={e => handleInputChange( e, indexProduto, detalhes.id)} 
+                                                                    onBlur={valoresp(detalhes)}
+                                                                    value={detalhes.valor_custo_fornecedor}
+                                                                    name="valor_custo_fornecedor"
+                                                                    type="Float"
+                                                                    min="0" 
+                                                                    step="0"
+                                                                    onChange= {e => handleInputChange(e, indexProduto, detalhes.id)} 
                                                                 /> 
-                                                                ) :  (detalhes.valor_custo_fornecedor )} {}
+                                                                ) :  parseFloat(detalhes.valor_custo_fornecedor).toFixed(2).replace("NaN", " ")}
                                                                 
                                                         </td>
                                                         
-                                                        <td className= "placeholder05" onDoubleClick={handleEdit}>{isEdit ? (
-                                                            <input className= "placeholder05" value={detalhes.observacao}
-                                                            name="observacao" 
+                                                        <div className= "placeholder05" onDoubleClick={handleEdit} name="observacao" 
+                                                                style={{width: '20vw', height: '15vh', overflowY: 'auto'}}>
+                                                        {isEdit ? (
+                                                            <textarea className= "placeholder05" value={detalhes.observacao}
+                                                            name="observacao"
+                                                            style={{width: '20vw', height: '15vh', overflowY: 'auto'}}
                                                             onChange={(e) => handleInputChange01(e, indexProduto, detalhes.id)}
                                                             />
                                                                     
-                                                        ) : (detalhes.observacao)}
-                                                        </td>
+                                                        ) : (detalhes.observacao)
+                                                        }
+                                                        </div>
+                                                        
                                                     </tr>
                                                     
                                                 )
@@ -229,15 +276,26 @@ export const Products = () => {
                                         ))
                                             
                                         ) : (
+
                                             <tr>
-                                                <td colspan="4" className="text-danger"> A lista está vazia! </td>
+                                                <td colspan="4" className="text-danger"> <i className='danger-icon'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
+                                                    <path fillRule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+                                                        </svg>
+                                                </i> Você não possui cotações disponíveis!!</td>
                                             </tr>
                                         )
                                     }
                                     
                                 </tbody>
+
                             </table>
-                            <div>
+                        </div> 
+                        
+                        </form>
+
+                            <div className='botao'>
+
+                            <h3 className='legenda'> <p className='up'> ACIMA </p>  <p className='down'> ABAIXO  </p> </h3> 
 
                             <button className="edit" onClick={handleEdit}>
                                 <i> 
@@ -247,15 +305,20 @@ export const Products = () => {
                                 </i>
                             </button>
 
-                            <button className="save" onSubmit={handleSave}> Salvar </button> {}
-
+                            <div>
+                               <button className="save" onClick={handleSave}> Salvar </button> {} 
+                            </div>
+                            
                             </div>
 
-                        </form>
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
         </div>
         
     );

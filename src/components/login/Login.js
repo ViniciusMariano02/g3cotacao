@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Login.css';
 import TextField from '@mui/material/TextField';
 import {Button} from '@mui/material';
@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { store } from '../../redux/store';
 import { loginEnter, loginError } from '../../redux/loginSlice';
 import { useNavigate } from 'react-router-dom';
-import { verifyCredentials } from '../../services/authService';
+//import { verifyCredentials } from '../../services/authService';
 import logo2 from './logo2.png';
 
 function Login() {
@@ -41,13 +41,20 @@ function Login() {
 
   const dispatch = useDispatch()
 
-  function onChangeUserName(e:ChangeEvent<HTMLInputElement>){
+  function onChangeUserName(e){
     setUserId(e.currentTarget.value)
   }
   
-  function onChangePassword(e:ChangeEvent<HTMLInputElement>){
+  function onChangePassword(e){
     setPassword(e.currentTarget.value)
   }
+
+  document.addEventListener('keydown', function(e) {
+    if(e.key === "Enter"){
+      document.getElementById("btEntrar").click();
+    }
+});
+
   
   //function onClickEnter(){
     //if( verifyCredentials(userId, password) )
@@ -57,6 +64,7 @@ function Login() {
   //}
   
   return (
+
       <header className="login-header">
         <div className="box">
           <div className="login-message">
@@ -85,9 +93,11 @@ function Login() {
           <div className="login-error">
             {errorMessage}
           </div>
-            <Button type='submit' className='btn' variant="contained" onClick={login} >Login</Button>
+
+            <Button className='btn' id='btEntrar' variant="contained" onClick={login} >Login</Button>
         </div>
       </header>  
+      
   );
 }
 
