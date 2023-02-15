@@ -254,7 +254,7 @@ export const Products = () => {
                                                         </td>
                                                         
                                                         <td className= "placeholder05" onDoubleClick={handleEdit}>{isEdit ? (
-                                                            <input className= "placeholder05" value={detalhes.observacao}
+                                                            <textarea className= "placeholder05" value={detalhes.observacao}
                                                             name="observacao" 
                                                             onChange={(e) => handleInputChange01(e, indexProduto, detalhes.id)}
                                                             />
