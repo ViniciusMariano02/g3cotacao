@@ -244,7 +244,7 @@ select:disabled{
   margin-bottom: 2vw;
 }
 
-.save{  
+.save{ 
   cursor: pointer;
   background: #1e345a;
 	color: white;
@@ -260,6 +260,7 @@ select:disabled{
 
 
 .edit{
+  margin-top: 15px;
   cursor: pointer;
   border-color: #074076;
   border-radius: 10px;
@@ -276,6 +277,7 @@ select:disabled{
 }
 
 .up{
+  margin-top: 15px;
   height: 15px;
   border-style: double;
   background-color: #fafafa;
