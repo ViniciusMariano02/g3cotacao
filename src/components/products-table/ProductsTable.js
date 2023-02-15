@@ -63,7 +63,7 @@ export const Products = () => {
           if (event.keyCode === 13 && event.target.nodeName === "INPUT") {
             var form = event.target.form;
             var index = Array.prototype.indexOf.call(form, event.target);
-            form.elements[index + 2].focus();
+            form.elements[index + 1].focus();
             event.preventDefault();
           }
         });
@@ -105,6 +105,12 @@ export const Products = () => {
             return 'green';
         }
     }
+
+    window.onbeforeunload = confirmExit;
+    function confirmExit(e)
+  { e.preventDefault()
+    return "Seus dados não salvos serão perdidos. Deseja Realmente sair?";
+  }
 
     const valoresp = (detalhes) =>{
         if(detalhes.preco_max === null && detalhes.preco_min === null){    
@@ -280,20 +286,13 @@ export const Products = () => {
 
                             </table>
                         </div> 
+                        
+                        </form>
 
                             <div className='botao'>
 
                             <h3 className='legenda'> <p className='up'> ACIMA </p>  <p className='down'> ABAIXO  </p> </h3> 
 
-
-
-                            <button className="save" onSubmit={handleSave}> Salvar </button> {}
-
-                            </div>
-
-                        </form>
-
-                        <div className='botao'>
                             <button className="edit" onClick={handleEdit}>
                                 <i> 
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -301,7 +300,12 @@ export const Products = () => {
                                     </svg>
                                 </i>
                             </button>
-                        </div>
+
+                            <div>
+                               <button className="save" onClick={handleSave}> Salvar </button> {} 
+                            </div>
+                            
+                            </div>
 
                     </div>
 
