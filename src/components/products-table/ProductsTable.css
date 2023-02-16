@@ -244,17 +244,15 @@ select:disabled{
 }
 
 .save{ 
+  margin-top: 15px;
   cursor: pointer;
-  background: #1e345a;
-	color: white;
-	border-style: outset;
-	border-color: #1e345a;
-	height: 50px;
-	width: 75px;
-  font-size: 17px;
-	font: bold 15px arial,sans-serif;
-	text-shadow: none;
+  border-color: #074076;
   border-radius: 10px;
+  border-style: outset;
+  background-color: #074076;
+  color: #f7f7f7;
+  width: 50px;
+  height: 50px; 
 }
 
 
@@ -310,6 +308,9 @@ select:disabled{
   .up{
     margin-top: 1px;
   }
+  .save{
+    margin-top: 0px;
+  }
 }
 
 @media(max-height:500px){
@@ -318,5 +319,8 @@ select:disabled{
   }
   .up{
     margin-top: 2px;
+  }
+  .save{
+    margin-top: 0px;
   }
 }

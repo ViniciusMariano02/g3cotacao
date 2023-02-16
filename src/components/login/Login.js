@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState  } from 'react';
 import './Login.css';
 import TextField from '@mui/material/TextField';
 import {Button} from '@mui/material';
@@ -8,19 +8,38 @@ import { loginEnter, loginError } from '../../redux/loginSlice';
 import { useNavigate } from 'react-router-dom';
 //import { verifyCredentials } from '../../services/authService';
 import logo2 from './logo2.png';
+import Home from '../home/Home.js'
 
-function Login() {
+
+function Login({setReceberUsuario}) {
 
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
+  const [user, setUser] = useState([]);
+  
   const navigate = useNavigate();
 
+  function funçoes (){
+    users();
+    login();
+  }
+
+  async function users() 
+  {
+    const result = await fetch (`http://8b38091fc43d.sn.mynetname.net:2000/user/${userId}/${password} `, {
+    })
+
+    const data = await result.json();          
+    setUser(data);
+    setReceberUsuario(data.documento);
+  }
+  
   async function login() 
     {
       const result = await fetch (`http://8b38091fc43d.sn.mynetname.net:2000/user/${userId}/${password} `, {
-      }).then((res) => {
+      })
+      .then(async (res) => {
         if( res.status === 200){
           dispatch(loginEnter());
         }
@@ -28,11 +47,13 @@ function Login() {
           dispatch(loginError());
         }
       }).catch((err)=>{
-        console.log(err.message)  
-    })
-    
+        console.log(err.message)      
+    }, []);
     }
 
+  console.log(user)
+
+    
   store.subscribe(() => {
     setErrorMessage(store.getState().login.errorMessage);
       if(store.getState().login.isLogged === true)
@@ -53,9 +74,10 @@ function Login() {
     if(e.key === "Enter"){
       document.getElementById("btEntrar").click();
     }
-});
+  });
 
-  
+  <Home user={user} />
+
   //function onClickEnter(){
     //if( verifyCredentials(userId, password) )
       //dispatch(loginEnter());
@@ -63,10 +85,14 @@ function Login() {
       //dispatch(loginError());
   //}
   
-  return (
 
+
+
+  return (
+  
       <header className="login-header">
-        <div className="box">
+        <div className="box">  
+
           <div className="login-message">
             <span className= "login-form-tittle"><img className="image" src={logo2} alt ="G3"/></span>
           </div>
@@ -94,12 +120,16 @@ function Login() {
             {errorMessage}
           </div>
 
-            <Button className='btn' id='btEntrar' variant="contained" onClick={login} >Login</Button>
+            <Button className='btn' id='btEntrar' variant="contained" onClick={funçoes} >Login</Button>
+
+
         </div>
       </header>  
       
   );
 }
+
+
 
 export default Login;
 
