@@ -1,0 +1,94 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: white;
+}
+
+.imageHome{
+    width: 150px;
+    padding-right: 30px;
+    padding-left: 15px;
+  }
+
+.app-header3 {
+    display: grid;
+    align-items: center;
+    background-color: white;
+    width: 1600px;
+    height: 100px;
+    color: #87CEFA;
+  }
+
+.app-title2 {
+    position: absolute;
+    font-size: 1.0em;
+    padding-right: 400px;
+    font-style: italic;
+  }
+
+.op1 {
+    padding-left: 15px;
+    display: inline-block;
+    font-size: 18px;
+    text-align: center;
+    color: #0000FF;
+    text-decoration: none;
+}
+
+.op2 {
+    padding-left: 18px;
+    display: inline-block;
+    margin-right: 0vw;
+    font-size: 18px;
+    text-align: center;
+    padding-bottom: 10px;
+    color: #0000FF;
+    text-decoration: none;
+}
+
+Link{
+  color: blue;
+}
+
+.btns{
+  background-color: rgba(80, 188, 221, 0.979);
+  height: 65px;
+  color: rgb(255, 255, 255);
+}  
+
+
+
+.CD{
+  background-color: #C9F7A1;
+  color: #258544;
+  font-size: 20px;
+  
+}
+
+.LC{
+  color: seagreen;
+  margin-left: 5px;
+  font-size: 20px;
+}
+
+.Brand{
+  position: absolute;
+  color: #000;
+  padding-left: 1380px;
+  padding-bottom: 50px;
+  font-size: 17px;
+  font-style: bold;
+}
+
+.link{
+  padding-left: 12px;
+  color: #FF3630;
+  font-size: 16px;
+}
+
+.icon2{
+  margin-left: 7px;
+  color: seagreen;
+  height: 30px;
+  width: 30px;
+}
