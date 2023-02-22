@@ -6,6 +6,10 @@
   
 }
 
+.cnpj{
+  font-size: 12px;
+}
+
 .geral{
   width: 100%;
 }
@@ -106,6 +110,7 @@ Link{
 }
 
 .link{
+  margin-right: 10px;
   cursor: pointer;
   background-color: red;
   border: none;
@@ -114,7 +119,8 @@ Link{
   text-align: center;
   text-decoration: none;
   font-size: 16px;
-  
+  height: 20px;
+  margin-left: 5px;
 }
 
 .icon2{
@@ -129,6 +135,17 @@ Link{
    visibility: hidden;
   }
 }
-    
+
+@media(max-width:500px){
+  .cnpj{
+    visibility: hidden;
+  }
+  .Brand{
+    margin-right: 50px;
+  }
+  .link{
+    margin-right: 50px;
+  }
+}
     
   

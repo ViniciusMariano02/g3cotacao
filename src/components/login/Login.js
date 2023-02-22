@@ -8,10 +8,10 @@ import { loginEnter, loginError } from '../../redux/loginSlice';
 import { useNavigate } from 'react-router-dom';
 //import { verifyCredentials } from '../../services/authService';
 import logo2 from './logo2.png';
-import Home from '../home/Home.js'
 
 
-function Login({setReceberUsuario}) {
+
+export function Login({setNomeUsuario, setIdloja, setCnpj}) {
 
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +32,9 @@ function Login({setReceberUsuario}) {
 
     const data = await result.json();          
     setUser(data);
-    setReceberUsuario(data.documento);
+    setNomeUsuario(data.razao_social);
+    setIdloja(data.id);
+    setCnpj(data.numero_documento);
   }
   
   async function login() 
@@ -76,7 +78,7 @@ function Login({setReceberUsuario}) {
     }
   });
 
-  <Home user={user} />
+
 
   //function onClickEnter(){
     //if( verifyCredentials(userId, password) )

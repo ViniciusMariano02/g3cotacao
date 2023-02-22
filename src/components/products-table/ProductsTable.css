@@ -60,6 +60,12 @@ table{
   border-style: groove;
 }
 
+textarea{
+  height: 25vh;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
 .border-top-06{
   width: 29%;
   margin: 10px;
@@ -144,6 +150,11 @@ div>.op4:hover{
   color: black;
 }
 
+.OBS{
+  border-radius: 10px;
+  border-style: solid;
+}
+
 .placeholder05{
   cursor: pointer;
   width: 425px;
@@ -192,16 +203,21 @@ i{
 }
 
 .marca{
-  display: flex;
+  margin-left: 100px;
+  width: 19vw;
   color: #000;
   font-size: 15px;
   font-style: italic;
 }
 
+.cnpjText{
+  font-size: 12px;
+}
+
 .exit{
   cursor: pointer;
   background-color: red;
-  margin-right: 10px;
+  margin-right: 5px;
   border: none;
   color: white;
   height: 20px;
@@ -310,6 +326,9 @@ select:disabled{
   }
   .save{
     margin-top: 0px;
+  }
+  .placeholder05{
+    height: '4vh'
   }
 }
 

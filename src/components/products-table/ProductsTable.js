@@ -6,21 +6,21 @@ import { Link , useNavigate} from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
 
-export const Products = ({usuario}) => {
+export const Products = ({usuario, idDaLoja}) => {
     const [products, setProducts] = useState([]);
     const [selectedQuotation, setSelectedQuotation] = useState();
     const [detalhe, setDetalhe] = useState([]);
 
     useEffect(() => {
         async function fetchData (){
-            const response = await fetch ("http://8b38091fc43d.sn.mynetname.net:2000/cotacao/fornecedor/529"); 
+            const response = await fetch (`http://8b38091fc43d.sn.mynetname.net:2000/cotacao/fornecedor/${idDaLoja}`); 
             const data = await response.json();
             setProducts(data);
         }
         fetchData();
     }, []);
 
-    console.log(usuario);
+    console.log(idDaLoja);
 
     const dispatch = useDispatch();
 
