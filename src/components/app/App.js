@@ -2,7 +2,7 @@ import React , {useState} from 'react';
 import Login from '../login/Login';
 import {Route, Routes, BrowserRouter,} from "react-router-dom";
 import './App.css';
-import Products from '../products-table/ProductsTable.jsx';
+import Products from '../products-table/ProductsTable.js';
 import { ProtectedRoute } from '../protected-route/ProtectedRoute';
 import { Provider } from 'react-redux';
 import { store } from '../../redux/store';
