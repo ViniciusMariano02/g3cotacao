@@ -37,17 +37,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "node server.js",
-    "dev": "concurrently \"json-server --watch db.json --port 3001 \" \"react-scripts start\"",
+    "start": "concurrently \"json-server --watch db.json --port 3001 \" \"react-scripts start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  
-    "engines": {
-    "node": "14.18.3",
-    "npm": "6.14.15"
-    },
   
   "eslintConfig": {
     "extends": [
