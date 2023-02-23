@@ -53,9 +53,7 @@ export function Login({setNomeUsuario, setIdloja, setCnpj}) {
     }, []);
     }
 
-  console.log(user)
-
-    
+  
   store.subscribe(() => {
     setErrorMessage(store.getState().login.errorMessage);
       if(store.getState().login.isLogged === true)
@@ -87,8 +85,6 @@ export function Login({setNomeUsuario, setIdloja, setCnpj}) {
       //dispatch(loginError());
   //}
   
-
-
 
   return (
   
