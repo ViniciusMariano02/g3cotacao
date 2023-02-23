@@ -199,7 +199,7 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
                                         </th>
 
                                         <th className="border-top-02">
-                                            Valor
+                                            VL Unitário
                                         </th>
 
                                         <th className="border-top-06">
