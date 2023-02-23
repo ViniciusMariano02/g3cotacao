@@ -16,8 +16,6 @@ function Home({nomeDoUsuario , cnpj01}){
         navigate('/')
     }
 
-    console.log(cnpj01)
-
     return(
         <div className='geral'>
             <header className="app-header3">
