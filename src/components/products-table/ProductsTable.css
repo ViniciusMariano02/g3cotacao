@@ -343,3 +343,10 @@ select:disabled{
     margin-top: 0px;
   }
 }
+
+@media(max-width:700px){
+  .cnpjText{
+    visibility: hidden;
+    font-size: 1px;
+  }
+}
