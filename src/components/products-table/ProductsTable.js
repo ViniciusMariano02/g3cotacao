@@ -5,11 +5,11 @@ import {loginLogout} from '../../redux/loginSlice';
 import { Link , useNavigate} from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
-
 export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
     const [products, setProducts] = useState([]);
     const [selectedQuotation, setSelectedQuotation] = useState();
     const [detalhe, setDetalhe] = useState([]);
+    const [dataFinal, setDataFinal] = useState();
 
     const setUser = JSON.parse(localStorage.getItem('dados'));
 
@@ -18,6 +18,8 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
             const response = await fetch (`http://8b38091fc43d.sn.mynetname.net:2000/cotacao/fornecedor/${setUser.id}`); 
             const data = await response.json();
             setProducts(data);
+            const dataF = (data[0])
+            setDataFinal(dataF.data_hora_fim_cotacao)
         }
         fetchData();
     }, []);
@@ -91,11 +93,7 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
             }
         )
     }
-
-    const dataF = products[0]
-    
-    const dataFinal = dataF.data_hora_fim_cotacao
-
+ 
     const handleSave = async(e) => {
         if(dataAtual < dataFinal){
         e.preventDefault();
@@ -172,7 +170,7 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
                     <div className="card-body p-0">    
 
                                 <div className="select" >
-
+                        
                                     <select 
                                         disabled={isEdit} 
                                         name="quotation-list"
@@ -181,9 +179,11 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
                                     >  
                                     <option value="None">Selecione a cotação</option>
                                     {products.map((item) => {
-                                        return (
-                                            <option key={item.id} value={item.descricao}>Cotação: ({item.id}-{item.descricao}) <p className="DHI">Data/Hora Inicio: {item.data_hora_emissao}</p> <p className="DHT">Data/Hora Termino: {item.data_hora_fim_cotacao}</p> </option> 
-                                        )
+                                        if(dataAtual < dataFinal){
+                                            return (
+                                                <option key={item.id} value={item.descricao}>Cotação: ({item.id}-{item.descricao}) <p className="DHI">Data/Hora Inicio: {item.data_hora_emissao}</p> <p className="DHT">Data/Hora Termino: {item.data_hora_fim_cotacao}</p> </option> 
+                                            )  
+                                        }                                      
                                     })}
                                     </select>
                                     
