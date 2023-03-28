@@ -22,6 +22,15 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
         fetchData();
     }, []);
 
+    const hora = new Date().toLocaleTimeString();
+
+    const data = new Date();
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+
+    const dataAtual = ano + '-' + mes + '-' + dia + ', ' + hora ;
+    
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
@@ -83,7 +92,12 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
         )
     }
 
+    const dataF = products[0]
+    
+    const dataFinal = dataF.data_hora_fim_cotacao
+
     const handleSave = async(e) => {
+        if(dataAtual < dataFinal){
         e.preventDefault();
         fetch("http://8b38091fc43d.sn.mynetname.net:2000/cotacao/save",{ 
             method:"PUT", 
@@ -97,6 +111,9 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
         }).catch((err)=>{
             console.log(err.message)  
         })
+        }else{
+            alert('Cotação expirada')
+        }
     }
 
     const getCelColor = (detalhes) => {
@@ -112,7 +129,7 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
     window.onbeforeunload = confirmExit;
     function confirmExit(e)
   { e.preventDefault()
-    return "Seus dados não salvos serão perdidos. Deseja Realmente sair?";
+    return alert("Seus dados não salvos serão perdidos. Deseja Realmente sair?");
   }
 
     const valoresp = (detalhes) =>{
