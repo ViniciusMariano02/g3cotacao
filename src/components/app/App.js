@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React , {useState} from 'react';
 import Login from '../login/Login';
 import {Route, Routes, BrowserRouter,} from "react-router-dom";
 import './App.css';
@@ -11,19 +11,18 @@ import Home from '../home/Home';
 
 const App = () => {
 
-    const [usuariorecebido, setReceberUsuario] = useState('');
-
+    const [nome_Usuario, setNomeUsuario] = useState('');
     const [idLoja, setIdloja] = useState('');
+    const [cnpj, setCnpj] = useState('')
 
-    console.log('aqui esta o usuario no app:'+ idLoja);
     return (       
       <Provider store={store}>
         <header className="app-header">
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Login setReceberUsuario={setReceberUsuario} setIdloja={setIdloja}/>} />
-                <Route path="/home" element={<ProtectedRoute><Home usuario={usuariorecebido}/></ProtectedRoute>}/>
-                <Route path="/table" element={<ProtectedRoute><Products usuario={usuariorecebido} idDaLoja={idLoja}/></ProtectedRoute>} />
+              <Route path="/" element={<Login setNomeUsuario={setNomeUsuario}  setIdloja={setIdloja}  setCnpj={setCnpj}/>}/>
+                <Route path="/home" element={<ProtectedRoute><Home nomeDoUsuario={nome_Usuario} cnpj01={cnpj} /></ProtectedRoute>}/>
+                <Route path="/table" element={<ProtectedRoute><Products nomeDoUsuario={nome_Usuario}  idDaLoja={idLoja} cnpj01={cnpj} /></ProtectedRoute>}/>
             </Routes>
           </BrowserRouter>
         </header>

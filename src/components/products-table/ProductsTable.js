@@ -5,23 +5,34 @@ import {loginLogout} from '../../redux/loginSlice';
 import { Link , useNavigate} from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
-
-export const Products = ({usuario, idDaLoja}) => {
+export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
     const [products, setProducts] = useState([]);
     const [selectedQuotation, setSelectedQuotation] = useState();
     const [detalhe, setDetalhe] = useState([]);
+    const [dataFinal, setDataFinal] = useState();
+
+    const setUser = JSON.parse(localStorage.getItem('dados'));
 
     useEffect(() => {
         async function fetchData (){
-            const response = await fetch (`http://8b38091fc43d.sn.mynetname.net:2000/cotacao/fornecedor/${idDaLoja}`); 
+            const response = await fetch (`http://8b38091fc43d.sn.mynetname.net:2000/cotacao/fornecedor/${setUser.id}`); 
             const data = await response.json();
             setProducts(data);
+            const dataF = (data[0])
+            setDataFinal(dataF.data_hora_fim_cotacao)
         }
         fetchData();
     }, []);
 
-    console.log(idDaLoja);
+    const hora = new Date().toLocaleTimeString();
 
+    const data = new Date();
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+
+    const dataAtual = ano + '-' + mes + '-' + dia + ', ' + hora ;
+    
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
@@ -82,8 +93,9 @@ export const Products = ({usuario, idDaLoja}) => {
             }
         )
     }
-
+ 
     const handleSave = async(e) => {
+        if(dataAtual < dataFinal){
         e.preventDefault();
         fetch("http://8b38091fc43d.sn.mynetname.net:2000/cotacao/save",{ 
             method:"PUT", 
@@ -95,8 +107,12 @@ export const Products = ({usuario, idDaLoja}) => {
                 alert('Salvo com sucesso.'); 
             }
         }).catch((err)=>{
+            alert('Você esta deslogado ou fora da rede!')
             console.log(err.message)  
         })
+        }else{
+            alert('Cotação expirada')
+        }
     }
 
     const getCelColor = (detalhes) => {
@@ -112,7 +128,7 @@ export const Products = ({usuario, idDaLoja}) => {
     window.onbeforeunload = confirmExit;
     function confirmExit(e)
   { e.preventDefault()
-    return "Seus dados não salvos serão perdidos. Deseja Realmente sair?";
+    return alert("Seus dados não salvos serão perdidos. Deseja Realmente sair?");
   }
 
     const valoresp = (detalhes) =>{
@@ -133,12 +149,12 @@ export const Products = ({usuario, idDaLoja}) => {
     return(
 
         <div className='geral'>
-
+            
             <div className='container'>
                 <header className="geral-header">
                     <img className="home-image" src={logo2} alt='G3'/>
                 </header>
-                <p className="marca">MASTERBOI LTDA <button className="exit" onClick={onChangeLogin}>Sair</button> </p>
+                <p className="marca"> {setUser.razao_social} <p className='cnpjText'>Doc: {setUser.numero_documento} </p>  </p> <button className="exit" onClick={onChangeLogin}></button>
             </div>
 
             <div className="product-list">
@@ -155,7 +171,7 @@ export const Products = ({usuario, idDaLoja}) => {
                     <div className="card-body p-0">    
 
                                 <div className="select" >
-
+                        
                                     <select 
                                         disabled={isEdit} 
                                         name="quotation-list"
@@ -164,9 +180,11 @@ export const Products = ({usuario, idDaLoja}) => {
                                     >  
                                     <option value="None">Selecione a cotação</option>
                                     {products.map((item) => {
-                                        return (
-                                            <option key={item.id} value={item.descricao}>Cotação: ({item.id}-{item.descricao}) <p className="DHI">Data/Hora Inicio: {item.data_hora_emissao}</p> <p className="DHT">Data/Hora Termino: {item.data_hora_fim_cotacao}</p> </option> 
-                                        )
+                                        if(dataAtual < dataFinal){
+                                            return (
+                                                <option key={item.id} value={item.descricao}>Cotação: ({item.id}-{item.descricao}) <p className="DHI">Data/Hora Inicio: {item.data_hora_emissao}</p> <p className="DHT">Data/Hora Termino: {item.data_hora_fim_cotacao}</p> </option> 
+                                            )  
+                                        }                                      
                                     })}
                                     </select>
                                     
@@ -200,7 +218,7 @@ export const Products = ({usuario, idDaLoja}) => {
                                         </th>
 
                                         <th className="border-top-02">
-                                            Valor
+                                            VL Unitário 
                                         </th>
 
                                         <th className="border-top-06">
@@ -247,21 +265,23 @@ export const Products = ({usuario, idDaLoja}) => {
                                                                     onBlur={valoresp(detalhes)}
                                                                     value={detalhes.valor_custo_fornecedor}
                                                                     name="valor_custo_fornecedor"
-                                                                    type="Float"
+                                                                    pattern="[0-9]+([,\.][0-9]+)?"
+                                                                    type="Number"
                                                                     min="0" 
                                                                     step="0"
                                                                     onChange= {e => handleInputChange(e, indexProduto, detalhes.id)} 
-                                                                /> 
-                                                                ) :  parseFloat(detalhes.valor_custo_fornecedor).toFixed(2).replace("NaN", " ")}
+
+                                                                />
+                                                                ) :  parseFloat(detalhes.valor_custo_fornecedor).toFixed(2).replace("NaN", " ").replace("." , ",")}
                                                                 
                                                         </td>
                                                         
                                                         <div className= "placeholder05" onDoubleClick={handleEdit} name="observacao" 
-                                                                style={{width: '20vw', height: '15vh', overflowY: 'auto'}}>
+                                                                style={{width: '30vw' , overflowY: 'auto', height:'45px' }}>
                                                         {isEdit ? (
-                                                            <textarea className= "placeholder05" value={detalhes.observacao}
+                                                            <textarea className= "OBS" value={detalhes.observacao}
                                                             name="observacao"
-                                                            style={{width: '20vw', height: '15vh', overflowY: 'auto'}}
+                                                        style={{width: '26vw', overflowY: 'auto', "font-size" : '17px', height:'80px' }}
                                                             onChange={(e) => handleInputChange01(e, indexProduto, detalhes.id)}
                                                             />
                                                                     
@@ -298,21 +318,14 @@ export const Products = ({usuario, idDaLoja}) => {
 
                             <div className='botao'>
 
-                            <h3 className='legenda'> <p className='up'> ACIMA </p>  <p className='down'> ABAIXO  </p> </h3> 
+                            <h3 className='legenda'> <p className='up'>  </p>  <p className='down'>   </p> </h3> 
 
                             <button className="edit" onClick={handleEdit}>
-                                <i> 
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                    </svg>
-                                </i>
+
                             </button>
 
                             <div>
-                               <button className="save" onClick={handleSave}> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5">
-  <path fillRule="evenodd" d="M2 4.75C2 3.784 2.784 3 3.75 3h4.836c.464 0 .909.184 1.237.513l1.414 1.414a.25.25 0 00.177.073h4.836c.966 0 1.75.784 1.75 1.75v8.5A1.75 1.75 0 0116.25 17H3.75A1.75 1.75 0 012 15.25V4.75zm8.75 4a.75.75 0 00-1.5 0v2.546l-.943-1.048a.75.75 0 10-1.114 1.004l2.25 2.5a.75.75 0 001.114 0l2.25-2.5a.75.75 0 10-1.114-1.004l-.943 1.048V8.75z" clipRule="evenodd" />
-</svg>
- </button> {} 
+                               <button required={isEdit} className="save" onClick={handleSave}> </button> {} 
                             </div>
                             
                             </div>

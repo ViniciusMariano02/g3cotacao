@@ -1,13 +1,12 @@
-import logo2 from "./logo2.png"
+import logo2 from "./assets/logo2.png"
 import './Home.css'
 import {loginLogout} from '../../redux/loginSlice';
 import { Link , useNavigate} from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { useState } from "react";
 
 
-function Home({usuario}){
-
+function Home({nomeDoUsuario , cnpj01}){
+    
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
@@ -17,7 +16,13 @@ function Home({usuario}){
         navigate('/')
     }
 
-    console.log('aqui esta o usuario logado:' + usuario);
+    
+    const setUser = JSON.parse(localStorage.getItem('dados'));
+
+    //console.log(setUser.razao_social)
+
+    //console.log(cnpj01)
+
     return(
         <div className='geral'>
             <header className="app-header3">
@@ -25,10 +30,11 @@ function Home({usuario}){
 
                     <span><img src={logo2} className="imageHome" alt='G3'/></span>
 
-                    <h1 className="app-title2"> Cotação </h1>
+                    <h1 className="app-title2">Cotação</h1>
+        
+                    <p className='Brand'> {setUser.razao_social} <p className='cnpj'> Doc: {setUser.numero_documento} </p></p> <button onClick={onChangeLogin} className='link'></button>
 
-                    <p className='Brand'>{usuario}  <button onClick={onChangeLogin} className='link'>Sair</button> </p>
-
+                    
                 </div>
             </header>
             

@@ -1,14 +1,13 @@
 import React, { useState  } from 'react';
 import './Login.css';
-import TextField from '@mui/material/TextField';
-import {Button} from '@mui/material';
+import {Button, Input} from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { store } from '../../redux/store';
 import { loginEnter, loginError } from '../../redux/loginSlice';
 import { useNavigate } from 'react-router-dom';
 //import { verifyCredentials } from '../../services/authService';
-import logo2 from './logo2.png';
-
+import logo2 from './assets/logo2.png';
+import fundoBox from './assets/fundoBox.png';
 
 
 export function Login({setNomeUsuario, setIdloja, setCnpj}) {
@@ -30,7 +29,10 @@ export function Login({setNomeUsuario, setIdloja, setCnpj}) {
     const result = await fetch (`http://8b38091fc43d.sn.mynetname.net:2000/user/${userId}/${password} `, {
     })
 
-    const data = await result.json();          
+    const data = await result.json();    
+
+    window.localStorage.setItem('dados' , JSON.stringify(data));
+    
     setUser(data);
     setNomeUsuario(data.razao_social);
     setIdloja(data.id);
@@ -41,9 +43,11 @@ export function Login({setNomeUsuario, setIdloja, setCnpj}) {
     {
       const result = await fetch (`http://8b38091fc43d.sn.mynetname.net:2000/user/${userId}/${password} `, {
       })
+      
       .then(async (res) => {
         if( res.status === 200){
           dispatch(loginEnter());
+          localStorage.setItem('userId', userId)
         }
         else{
           dispatch(loginError());
@@ -53,9 +57,11 @@ export function Login({setNomeUsuario, setIdloja, setCnpj}) {
     }, []);
     }
 
+    
+
   console.log(user)
 
-    
+  
   store.subscribe(() => {
     setErrorMessage(store.getState().login.errorMessage);
       if(store.getState().login.isLogged === true)
@@ -78,41 +84,36 @@ export function Login({setNomeUsuario, setIdloja, setCnpj}) {
     }
   });
 
-
-
   //function onClickEnter(){
     //if( verifyCredentials(userId, password) )
       //dispatch(loginEnter());
     //else
       //dispatch(loginError());
-  //}
-  
-
-
+  //}  
 
   return (
-  
-      <header className="login-header">
-        <div className="box">  
-
+    
+      <header  className="login-header">
+        <div className="box" style={{"background-image": `url(${fundoBox})`}} >  
           <div className="login-message">
             <span className= "login-form-tittle"><img className="image" src={logo2} alt ="G3"/></span>
           </div>
 
-          <TextField
+      
+          <Input
               className='wrap-input'
               required
               id="user-name"
-              label="Código"
+              placeholder=" Código"
               defaultValue=""
               onChange={onChangeUserName}
             />
 
-          <TextField
+          <Input
               className='wrap-input'
               required
               id="user-password"
-              label="Senha"
+              placeholder=" Senha"
               defaultValue=""
               type="password"
               onChange={onChangePassword}
@@ -122,12 +123,13 @@ export function Login({setNomeUsuario, setIdloja, setCnpj}) {
             {errorMessage}
           </div>
 
-            <Button className='btn' id='btEntrar' variant="contained" onClick={funçoes} >Login</Button>
+            <button className='btn' id='btEntrar' variant="contained" onClick={funçoes} >Login</button>
 
+            
 
         </div>
       </header>  
-      
+    
   );
 }
 

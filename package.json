@@ -5,7 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
-    "@mui/icons-material": "^5.10.3",
+    "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.10.5",
     "@mui/x-data-grid": "^5.17.3",
     "@mui/x-date-pickers": "^5.0.2",
@@ -37,11 +37,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "concurrently \"json-server --watch db.json --port 3001 \" \"react-scripts start\"",
+    "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  
   "eslintConfig": {
     "extends": [
       "react-app",
