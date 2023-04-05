@@ -16,6 +16,10 @@
 table{
   width: 100%;
 }
+thead{
+  position: sticky;
+  top: 0;
+}
 
 .border-top-01{
   width: 30%;
