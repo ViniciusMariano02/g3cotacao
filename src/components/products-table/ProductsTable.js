@@ -31,7 +31,7 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
     const mes = String(data.getMonth() + 1).padStart(2, '0');
     const ano = data.getFullYear();
 
-    const dataAtual = ano + '-' + mes + '-' + dia + ', ' + hora ;
+    const dataAtual = ano + '-' + mes + '-' + dia + ' ' + hora ;
     
     const dispatch = useDispatch();
 
@@ -93,7 +93,10 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
             }
         )
     }
- 
+    
+    console.log(dataAtual)
+    console.log(dataFinal)
+
     const handleSave = async(e) => {
         if(dataAtual < dataFinal){
         e.preventDefault();
@@ -105,11 +108,12 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
             if( res.status === 201){ 
                 setEdit(!isEdit); 
                 alert('Salvo com sucesso.'); 
-            }else if (res.status === 404 ){
+            }else if( res.status === 404){
                 alert('Cotação Finalizada')
+            }else if( res.status === 400){
+                alert('Cotação Expirada')
             }
         }).catch((err)=>{
-            alert('Cotação Finalizada');
             console.log(err.message)  
         })
         }else{
@@ -320,16 +324,14 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
 
                             <div className='botao'>
 
-                            <h3 className='legenda'> <p className='up'>  </p>  <p className='down'>   </p> </h3> 
 
-                            <button className="edit" onClick={handleEdit}>
 
-                            </button>
-
-                            <div>
+                            <div className='a' >                            
+                                <h3 className='legenda'> <p className='up'>  </p>  <p className='down'>   </p> </h3> 
+                                <button className="edit" onClick={handleEdit}></button>
                                <button required={isEdit} className="save" onClick={handleSave}> </button> {} 
                             </div>
-                            
+                               
                             </div>
 
                     </div>
