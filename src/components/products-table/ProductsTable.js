@@ -107,7 +107,7 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
                 alert('Salvo com sucesso.'); 
             }
         }).catch((err)=>{
-            alert('Você esta deslogado ou fora da rede!')
+            alert('Cotação Finalizada');
             console.log(err.message)  
         })
         }else{
