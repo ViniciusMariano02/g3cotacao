@@ -105,6 +105,8 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
             if( res.status === 201){ 
                 setEdit(!isEdit); 
                 alert('Salvo com sucesso.'); 
+            }else if (res.status === 404 ){
+                alert('Cotação Finalizada')
             }
         }).catch((err)=>{
             alert('Cotação Finalizada');
