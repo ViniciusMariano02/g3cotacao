@@ -4,12 +4,16 @@ import logo2 from "../assets/logo2.png"
 import {loginLogout} from '../../redux/loginSlice';
 import { Link , useNavigate} from "react-router-dom";
 import { useDispatch } from 'react-redux';
+import { Alerta } from '../alerta';
+import { AlertaExpirado } from '../alerta_expirado';
 
 export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
     const [products, setProducts] = useState([]);
     const [selectedQuotation, setSelectedQuotation] = useState();
     const [detalhe, setDetalhe] = useState([]);
     const [dataFinal, setDataFinal] = useState();
+    const [alertaFinalizado, setAlertaFinalizado] = useState(false);
+    const [alertaExpirado, setAlertaExpirado] = useState(false);
 
     const setUser = JSON.parse(localStorage.getItem('dados'));
 
@@ -107,17 +111,17 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
         }).then((res)=>{
             if( res.status === 201){ 
                 setEdit(!isEdit); 
-                alert('Salvo com sucesso.'); 
+                alert('Salvo com sucesso!'); 
             }else if( res.status === 404){
-                alert('Cotação Finalizada')
+                setAlertaFinalizado(true);
             }else if( res.status === 400){
-                alert('Cotação Expirada')
+                setAlertaExpirado(true);
             }
         }).catch((err)=>{
             console.log(err.message)  
         })
         }else{
-            alert('Cotação expirada')
+            alert('Cotação expirada!')
         }
     }
 
@@ -154,8 +158,7 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
 
     return(
 
-        <div className='geral'>
-            
+        <div className='geral'>            
             <div className='container'>
                 <header className="geral-header">
                     <img className="home-image" src={logo2} alt='G3'/>
@@ -318,6 +321,8 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
                                 </tbody>
 
                             </table>
+                            {alertaFinalizado ? <Alerta close={()=> setAlertaFinalizado(false)}/> : null}
+                            {alertaExpirado ? <AlertaExpirado close={()=> setAlertaExpirado(false)}/> : null}
                         </div> 
                         
                         </form>
@@ -333,7 +338,6 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
                             </div>
                                
                             </div>
-
                     </div>
 
                 </div>
@@ -341,9 +345,8 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
             </div>
 
         </div>
-
-        </div>
         
+        </div>
     );
 }
 
