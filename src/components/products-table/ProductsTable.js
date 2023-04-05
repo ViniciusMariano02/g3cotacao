@@ -324,9 +324,10 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
 
                             <div className='botao'>
 
-                            <h3 className='legenda'> <p className='up'>  </p>  <p className='down'>   </p> </h3> 
 
-                            <div>
+
+                            <div className='a' >                            
+                                <h3 className='legenda'> <p className='up'>  </p>  <p className='down'>   </p> </h3> 
                                 <button className="edit" onClick={handleEdit}></button>
                                <button required={isEdit} className="save" onClick={handleSave}> </button> {} 
                             </div>
