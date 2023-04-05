@@ -1,5 +1,7 @@
 body{
-  background: url(assets/fundoLogin.png);
+  background-image: url(assets/fundoLogin.png);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .login-header {
