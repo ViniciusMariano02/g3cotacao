@@ -107,6 +107,7 @@ export const Products = ({nomeDoUsuario , idDaLoja , cnpj01}) => {
                 alert('Salvo com sucesso.'); 
             }
         }).catch((err)=>{
+            alert('Você esta deslogado ou fora da rede!')
             console.log(err.message)  
         })
         }else{
