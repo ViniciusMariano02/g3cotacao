@@ -59,11 +59,14 @@ export const Container = styled.div`
         border: none;
     }
     @media (max-width: 420px){
-        width: 90vw;
-        height: 40vw;
-        .close{
-            margin-right: 2px;
-        }
+        width: 80vw;
+        height: 35vw;
+        div{
+            font-size: 12px;
+            img{
+                height: 40px;
+                width: 40px;
+            }
     }
     
 `;
